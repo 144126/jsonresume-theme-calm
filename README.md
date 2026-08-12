@@ -2,7 +2,7 @@
 
 A calm [JSON Resume](https://jsonresume.org) theme. Soft sage palette on warm paper, hairline rules, no boxes or bars — and it fits **everything on a single A4 page**.
 
-**[calm.apexlinks.org](https://calm.apexlinks.org)** — type a GitHub username, see that person's résumé in this theme. Deep links work too: [calm.apexlinks.org/?u=144126](https://calm.apexlinks.org/?u=144126).
+**[calm.apexlinks.org](https://calm.apexlinks.org)** — type a GitHub username, see that person's résumé in this theme. Every résumé also has its own address: [calm.apexlinks.org/144126](https://calm.apexlinks.org/144126) is that page with nothing on it but the résumé, ready to send or print.
 
 ![preview](https://raw.githubusercontent.com/144126/jsonresume-theme-calm/main/preview.png)
 

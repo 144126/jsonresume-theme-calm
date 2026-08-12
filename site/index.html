@@ -8,7 +8,9 @@
 <meta property="og:title" content="calm — a one-page resume theme">
 <meta property="og:description" content="Render any JSON Resume as a calm, single-page A4 resume. Type a GitHub username.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23fdfcf9'/><path d='M9 11h14M9 16h14M9 21h9' stroke='%237b9a8e' stroke-width='2' stroke-linecap='round'/></svg>">
+<script>document.documentElement.dataset.route = /^\/[a-z\d-]+$/i.test(location.pathname) ? 'view' : 'home';</script>
 <style>
+[data-route="view"] main { display: none; }
 :root {
 	--paper: #fdfcf9;
 	--ink: #38434b;
@@ -159,6 +161,10 @@ footer { margin-top: 2.5rem; text-align: center; color: var(--faint); font-size:
 			nothing is sent anywhere.
 		</p>
 		<p>
+			Your rendered résumé then lives at <code>calm.apexlinks.org/your-username</code> — a plain page holding
+			nothing but the résumé, ready to send or print.
+		</p>
+		<p>
 			Everything lands on a single A4 page: the type sizes itself between 6.8pt and 10.4pt to fit whatever you
 			wrote, so a short résumé fills the sheet and a long one still stays on it.
 		</p>
@@ -218,22 +224,25 @@ const findGist = async (who) => {
 	);
 };
 
+const load = async (who) => {
+	const raw = await findGist(who);
+	const res = await fetch(raw);
+	if (!res.ok) throw new Error('could not read that gist');
+
+	try {
+		return JSON.parse(await res.text());
+	} catch {
+		throw new Error(`<strong>${esc(who)}</strong>'s resume.json is not valid JSON`);
+	}
+};
+
 const show = async (who) => {
 	go.disabled = true;
 	say('looking for a resume.json gist…');
 	out.classList.remove('on');
 
 	try {
-		const raw = await findGist(who);
-		const res = await fetch(raw);
-		if (!res.ok) throw new Error('could not read that gist');
-
-		let resume;
-		try {
-			resume = JSON.parse(await res.text());
-		} catch {
-			throw new Error(`<strong>${esc(who)}</strong>'s resume.json is not valid JSON`);
-		}
+		const resume = await load(who);
 
 		html = render(resume);
 		name = who;
@@ -258,19 +267,37 @@ form.addEventListener('submit', (e) => {
 
 $('print').addEventListener('click', () => frame.contentWindow.print());
 
-$('open').addEventListener('click', () => {
-	open(URL.createObjectURL(new Blob([html], { type: 'text/html' })), '_blank');
-});
+const permalink = () => `${location.origin}/${encodeURIComponent(name)}`;
+
+$('open').addEventListener('click', () => open(permalink(), '_blank'));
 
 $('copy').addEventListener('click', async () => {
-	await navigator.clipboard.writeText(`${location.origin}${location.pathname}?u=${encodeURIComponent(name)}`);
+	await navigator.clipboard.writeText(permalink());
 	say('link copied');
 });
 
-const start = new URLSearchParams(location.search).get('u');
-if (start) {
-	user.value = start;
-	show(start);
+const alone = async (who) => {
+	try {
+		const doc = render(await load(who));
+		document.open();
+		document.write(doc);
+		document.close();
+	} catch (e) {
+		document.documentElement.dataset.route = 'home';
+		user.value = who;
+		say(e.message, true);
+	}
+};
+
+const path = decodeURIComponent(location.pathname.replace(/^\/|\/$/g, ''));
+const query = new URLSearchParams(location.search).get('u');
+const handle = /^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i;
+
+if (handle.test(path)) {
+	alone(path);
+} else if (query) {
+	user.value = query;
+	show(query);
 }
 </script>
 </body>
