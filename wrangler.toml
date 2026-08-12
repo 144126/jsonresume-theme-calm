@@ -1,0 +1,9 @@
+name = "calm"
+compatibility_date = "2026-08-12"
+
+[assets]
+directory = "./site"
+
+[[routes]]
+pattern = "calm.apexlinks.org"
+custom_domain = true

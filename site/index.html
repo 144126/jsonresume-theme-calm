@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>calm — a one-page resume theme</title>
+<meta name="description" content="Render any JSON Resume as a calm, single-page A4 resume. Type a GitHub username.">
+<meta property="og:title" content="calm — a one-page resume theme">
+<meta property="og:description" content="Render any JSON Resume as a calm, single-page A4 resume. Type a GitHub username.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23fdfcf9'/><path d='M9 11h14M9 16h14M9 21h9' stroke='%237b9a8e' stroke-width='2' stroke-linecap='round'/></svg>">
+<style>
+:root {
+	--paper: #fdfcf9;
+	--ink: #38434b;
+	--soft: #5f6e74;
+	--faint: #94a09f;
+	--sage: #7b9a8e;
+	--sage-deep: #5b7d70;
+	--line: #e7e6de;
+	--serif: 'Noto Serif', Cambria, Georgia, serif;
+	--sans: 'Noto Sans', 'Segoe UI', system-ui, sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+	background: #eceae4;
+	color: var(--soft);
+	font-family: var(--sans);
+	font-size: 15px;
+	line-height: 1.6;
+	-webkit-font-smoothing: antialiased;
+}
+main { max-width: 54rem; margin: 0 auto; padding: 4rem 1.25rem 5rem; }
+a { color: var(--sage-deep); }
+
+header { text-align: center; margin-bottom: 2.5rem; }
+h1 {
+	font-family: var(--serif);
+	font-size: clamp(2.6rem, 9vw, 3.6rem);
+	font-weight: 400;
+	color: var(--ink);
+	line-height: 1.1;
+}
+.tag { margin-top: .6rem; color: var(--sage-deep); }
+
+form {
+	display: flex;
+	flex-wrap: wrap;
+	gap: .6rem;
+	justify-content: center;
+	margin-bottom: 1rem;
+}
+input, button {
+	font: inherit;
+	border: 1px solid var(--line);
+	border-radius: 2px;
+	padding: .7rem 1rem;
+	background: var(--paper);
+	color: var(--ink);
+}
+input { min-width: min(20rem, 100%); }
+input::placeholder { color: var(--faint); }
+input:focus-visible, button:focus-visible { outline: 2px solid var(--sage); outline-offset: 2px; }
+button { background: var(--sage-deep); color: var(--paper); border-color: var(--sage-deep); cursor: pointer; }
+button:hover:not(:disabled) { background: var(--sage); border-color: var(--sage); }
+button:disabled { opacity: .55; cursor: default; }
+
+.msg { text-align: center; min-height: 1.6rem; color: var(--soft); }
+.msg.bad { color: #a8635b; }
+.msg a { white-space: nowrap; }
+
+.out { margin-top: 1.5rem; display: none; }
+.out.on { display: block; }
+.actions { display: flex; flex-wrap: wrap; gap: .6rem; justify-content: center; margin-bottom: 1.25rem; }
+.actions button { background: var(--paper); color: var(--sage-deep); border-color: var(--line); }
+.actions button:hover:not(:disabled) { background: var(--paper); border-color: var(--sage); }
+
+.sheet {
+	position: relative;
+	width: 100%;
+	max-width: 794px;
+	margin: 0 auto;
+	aspect-ratio: 210 / 297;
+	background: var(--paper);
+	box-shadow: 0 1px 3px rgba(56, 67, 75, .08), 0 12px 32px rgba(56, 67, 75, .1);
+}
+.sheet iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 794px;
+	height: 1123px;
+	border: 0;
+	transform-origin: 0 0;
+}
+
+.how {
+	margin-top: 4rem;
+	padding-top: 2rem;
+	border-top: 1px solid var(--line);
+	font-size: .94rem;
+}
+.how h2 {
+	font-size: .8rem;
+	font-weight: 600;
+	letter-spacing: .18em;
+	text-transform: lowercase;
+	color: var(--sage);
+	margin-bottom: .9rem;
+}
+.how p { margin-bottom: .8rem; max-width: 42rem; }
+code {
+	font-family: 'Noto Sans Mono', ui-monospace, monospace;
+	font-size: .87em;
+	background: var(--paper);
+	border: 1px solid var(--line);
+	border-radius: 2px;
+	padding: .1em .4em;
+}
+pre {
+	background: var(--paper);
+	border: 1px solid var(--line);
+	border-radius: 2px;
+	padding: .9rem 1rem;
+	overflow-x: auto;
+	margin-bottom: .8rem;
+}
+pre code { background: none; border: 0; padding: 0; }
+footer { margin-top: 2.5rem; text-align: center; color: var(--faint); font-size: .9rem; }
+</style>
+</head>
+<body>
+<main>
+	<header>
+		<h1>calm</h1>
+		<p class="tag">your résumé, quiet and on one page</p>
+	</header>
+
+	<form id="f">
+		<input id="u" name="u" placeholder="github username" autocomplete="off" autocapitalize="off" spellcheck="false" required>
+		<button id="go">render</button>
+	</form>
+	<p class="msg" id="msg"></p>
+
+	<div class="out" id="out">
+		<div class="actions">
+			<button id="print">save as pdf</button>
+			<button id="open">open in a tab</button>
+			<button id="copy">copy link</button>
+		</div>
+		<div class="sheet" id="sheet"><iframe id="frame" title="resume preview"></iframe></div>
+	</div>
+
+	<section class="how">
+		<h2>how it works</h2>
+		<p>
+			Put your résumé in a public GitHub gist named <code>resume.json</code>, following the
+			<a href="https://jsonresume.org/schema/">JSON Resume schema</a>. Type your username above and this page
+			fetches that gist and renders it — in your browser, on your own GitHub rate limit. Nothing is stored,
+			nothing is sent anywhere.
+		</p>
+		<p>
+			Everything lands on a single A4 page: the type sizes itself between 6.8pt and 10.4pt to fit whatever you
+			wrote, so a short résumé fills the sheet and a long one still stays on it.
+		</p>
+		<h2 style="margin-top:2rem">use the theme yourself</h2>
+		<pre><code>npm i -g resumed jsonresume-theme-calm
+resumed render resume.json --theme jsonresume-theme-calm -o resume.html</code></pre>
+		<p>
+			Works with <code>resume-cli</code> too, and from Node with <code>require('jsonresume-theme-calm').render(resume)</code>.
+		</p>
+	</section>
+
+	<footer>
+		<a href="https://www.npmjs.com/package/jsonresume-theme-calm">npm</a> ·
+		<a href="https://github.com/144126/jsonresume-theme-calm">github</a> ·
+		MIT
+	</footer>
+</main>
+
+<script type="module">
+import { render } from './theme.js';
+
+const $ = (id) => document.getElementById(id);
+const [form, user, go, msg, out, frame, sheet] = ['f', 'u', 'go', 'msg', 'out', 'frame', 'sheet'].map($);
+
+let html = '';
+let name = '';
+
+const esc = (s) =>
+	String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+
+const say = (text, bad) => {
+	msg.innerHTML = text;
+	msg.classList.toggle('bad', !!bad);
+};
+
+const scale = () => {
+	frame.style.transform = `scale(${sheet.clientWidth / 794})`;
+};
+addEventListener('resize', scale);
+
+const findGist = async (who) => {
+	const res = await fetch(`https://api.github.com/users/${encodeURIComponent(who)}/gists?per_page=100`);
+
+	if (res.status === 404) throw new Error(`no github user called <strong>${esc(who)}</strong>`);
+	if (res.status === 403 || res.status === 429)
+		throw new Error("github's rate limit for your network is used up — try again in an hour");
+	if (!res.ok) throw new Error(`github answered ${res.status}`);
+
+	for (const gist of await res.json()) {
+		const file = Object.values(gist.files).find((f) => /^resume\.json$/i.test(f.filename));
+		if (file) return file.raw_url;
+	}
+	throw new Error(
+		`<strong>${esc(who)}</strong> has no public gist named resume.json — ` +
+			'<a href="https://gist.github.com">make one</a> shaped like the ' +
+			'<a href="https://jsonresume.org/schema/">schema</a>'
+	);
+};
+
+const show = async (who) => {
+	go.disabled = true;
+	say('looking for a resume.json gist…');
+	out.classList.remove('on');
+
+	try {
+		const raw = await findGist(who);
+		const res = await fetch(raw);
+		if (!res.ok) throw new Error('could not read that gist');
+
+		let resume;
+		try {
+			resume = JSON.parse(await res.text());
+		} catch {
+			throw new Error(`<strong>${esc(who)}</strong>'s resume.json is not valid JSON`);
+		}
+
+		html = render(resume);
+		name = who;
+		frame.srcdoc = html;
+		out.classList.add('on');
+		scale();
+		say('');
+		history.replaceState(null, '', `?u=${encodeURIComponent(who)}`);
+		document.title = `${resume.basics?.name ?? who} — calm`;
+	} catch (e) {
+		say(e.message, true);
+	} finally {
+		go.disabled = false;
+	}
+};
+
+form.addEventListener('submit', (e) => {
+	e.preventDefault();
+	const who = user.value.trim().replace(/^@/, '');
+	if (who) show(who);
+});
+
+$('print').addEventListener('click', () => frame.contentWindow.print());
+
+$('open').addEventListener('click', () => {
+	open(URL.createObjectURL(new Blob([html], { type: 'text/html' })), '_blank');
+});
+
+$('copy').addEventListener('click', async () => {
+	await navigator.clipboard.writeText(`${location.origin}${location.pathname}?u=${encodeURIComponent(name)}`);
+	say('link copied');
+});
+
+const start = new URLSearchParams(location.search).get('u');
+if (start) {
+	user.value = start;
+	show(start);
+}
+</script>
+</body>
+</html>

@@ -2,6 +2,8 @@
 
 A calm [JSON Resume](https://jsonresume.org) theme. Soft sage palette on warm paper, hairline rules, no boxes or bars — and it fits **everything on a single A4 page**.
 
+**[calm.apexlinks.org](https://calm.apexlinks.org)** — type a GitHub username, see that person's résumé in this theme. Deep links work too: [calm.apexlinks.org/?u=144126](https://calm.apexlinks.org/?u=144126).
+
 ![preview](https://raw.githubusercontent.com/144126/jsonresume-theme-calm/main/preview.png)
 
 ## use
@@ -46,6 +48,15 @@ Dates follow what you give: `2011` stays a year, `2011-06` becomes `Jun 2011`, a
 Palette lives in CSS custom properties at the top of the `<style>` block — `--paper`, `--ink`, `--soft`, `--faint`, `--sage`, `--sage-deep`, `--line`. Fork and edit those seven values to re-tune the whole page.
 
 Type is Noto Serif for the name, Noto Sans for everything else, with system fallbacks.
+
+## the site
+
+`site/` is the page behind [calm.apexlinks.org](https://calm.apexlinks.org) — one static HTML file, no server. It reads the visitor's chosen gist straight from the GitHub API in their browser, so the rate limit is theirs and nothing is stored anywhere.
+
+```sh
+npm run build:site   # regenerates site/theme.js from index.js
+npm run deploy       # + wrangler deploy
+```
 
 ## license
 

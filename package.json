@@ -1,6 +1,6 @@
 {
   "name": "jsonresume-theme-calm",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A calm one-page JSON Resume theme — soft sage palette, minimal layout, auto-fits any resume onto a single A4 page.",
   "main": "index.js",
   "files": [
@@ -23,11 +23,13 @@
     "type": "git",
     "url": "git+https://github.com/144126/jsonresume-theme-calm.git"
   },
-  "homepage": "https://github.com/144126/jsonresume-theme-calm#readme",
+  "homepage": "https://calm.apexlinks.org",
   "bugs": {
     "url": "https://github.com/144126/jsonresume-theme-calm/issues"
   },
   "scripts": {
-    "test": "node test.js"
+    "test": "node test.js",
+    "build:site": "node scripts/site.js",
+    "deploy": "node scripts/site.js && wrangler deploy"
   }
 }
