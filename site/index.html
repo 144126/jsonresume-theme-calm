@@ -156,7 +156,7 @@ footer { margin-top: 2.5rem; text-align: center; color: var(--faint); font-size:
 		<h2>how it works</h2>
 		<p>
 			Put your résumé in a public GitHub gist named <code>resume.json</code>, following the
-			<a href="https://github.com/jsonresume/resume-schema">JSON Resume schema</a>. Type your username above and this page
+			<a href="https://github.com/jsonresume/jsonresume.org/tree/master/packages/schema">JSON Resume schema</a>. Type your username above and this page
 			fetches that gist and renders it — in your browser, on your own GitHub rate limit. Nothing is stored,
 			nothing is sent anywhere.
 		</p>
@@ -224,7 +224,7 @@ const findGist = async (who) => {
 	throw new Error(
 		`<strong>${esc(who)}</strong> has no public gist named resume.json — ` +
 			'<a href="https://gist.github.com">make one</a> shaped like the ' +
-			'<a href="https://github.com/jsonresume/resume-schema">schema</a>'
+			'<a href="https://github.com/jsonresume/jsonresume.org/tree/master/packages/schema">schema</a>'
 	);
 };
 

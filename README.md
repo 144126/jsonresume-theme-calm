@@ -1,6 +1,6 @@
 # jsonresume-theme-calm
 
-A calm [JSON Resume](https://github.com/jsonresume/resume-schema) theme. Soft sage palette on warm paper, hairline rules, no boxes or bars — and it fits **everything on a single A4 page**.
+A calm [JSON Resume](https://github.com/jsonresume/jsonresume.org/tree/master/packages/schema) theme. Soft sage palette on warm paper, hairline rules, no boxes or bars — and it fits **everything on a single A4 page**.
 
 **[calm.apexlinks.org](https://calm.apexlinks.org)** — type a GitHub username, see that person's résumé in this theme. Every résumé also has its own address: [calm.apexlinks.org/144126](https://calm.apexlinks.org/144126) is that page with nothing on it but the résumé, ready to send or print.
 
