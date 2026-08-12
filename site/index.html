@@ -156,7 +156,7 @@ footer { margin-top: 2.5rem; text-align: center; color: var(--faint); font-size:
 		<h2>how it works</h2>
 		<p>
 			Put your résumé in a public GitHub gist named <code>resume.json</code>, following the
-			<a href="https://jsonresume.org/schema/">JSON Resume schema</a>. Type your username above and this page
+			<a href="https://github.com/jsonresume/resume-schema">JSON Resume schema</a>. Type your username above and this page
 			fetches that gist and renders it — in your browser, on your own GitHub rate limit. Nothing is stored,
 			nothing is sent anywhere.
 		</p>
@@ -191,6 +191,7 @@ const [form, user, go, msg, out, frame, sheet] = ['f', 'u', 'go', 'msg', 'out', 
 
 let html = '';
 let name = '';
+let kept = false;
 
 const esc = (s) =>
 	String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
@@ -209,8 +210,11 @@ const findGist = async (who) => {
 	const res = await fetch(`https://api.github.com/users/${encodeURIComponent(who)}/gists?per_page=100`);
 
 	if (res.status === 404) throw new Error(`no github user called <strong>${esc(who)}</strong>`);
-	if (res.status === 403 || res.status === 429)
-		throw new Error("github's rate limit for your network is used up — try again in an hour");
+	if (res.status === 403 || res.status === 429) {
+		const limited = new Error("github's rate limit for your network is used up — try again in an hour");
+		limited.limited = true;
+		throw limited;
+	}
 	if (!res.ok) throw new Error(`github answered ${res.status}`);
 
 	for (const gist of await res.json()) {
@@ -220,19 +224,35 @@ const findGist = async (who) => {
 	throw new Error(
 		`<strong>${esc(who)}</strong> has no public gist named resume.json — ` +
 			'<a href="https://gist.github.com">make one</a> shaped like the ' +
-			'<a href="https://jsonresume.org/schema/">schema</a>'
+			'<a href="https://github.com/jsonresume/resume-schema">schema</a>'
 	);
 };
 
 const load = async (who) => {
-	const raw = await findGist(who);
-	const res = await fetch(raw);
-	if (!res.ok) throw new Error('could not read that gist');
+	const key = `calm:${who.toLowerCase()}`;
 
 	try {
-		return JSON.parse(await res.text());
-	} catch {
-		throw new Error(`<strong>${esc(who)}</strong>'s resume.json is not valid JSON`);
+		const raw = await findGist(who);
+		const res = await fetch(raw);
+		if (!res.ok) throw new Error('could not read that gist');
+
+		const text = await res.text();
+		let resume;
+		try {
+			resume = JSON.parse(text);
+		} catch {
+			throw new Error(`<strong>${esc(who)}</strong>'s resume.json is not valid JSON`);
+		}
+
+		try {
+			localStorage.setItem(key, text);
+		} catch {}
+		return resume;
+	} catch (e) {
+		const saved = e.limited && localStorage.getItem(key);
+		if (!saved) throw e;
+		kept = true;
+		return JSON.parse(saved);
 	}
 };
 
@@ -242,6 +262,7 @@ const show = async (who) => {
 	out.classList.remove('on');
 
 	try {
+		kept = false;
 		const resume = await load(who);
 
 		html = render(resume);
@@ -249,7 +270,7 @@ const show = async (who) => {
 		frame.srcdoc = html;
 		out.classList.add('on');
 		scale();
-		say('');
+		say(kept ? 'github is rate limiting you — showing a copy saved in this browser' : '');
 		history.replaceState(null, '', `?u=${encodeURIComponent(who)}`);
 		document.title = `${resume.basics?.name ?? who} — calm`;
 	} catch (e) {
