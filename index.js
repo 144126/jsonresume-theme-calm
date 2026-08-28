@@ -250,11 +250,11 @@ ${b.summary ? `<p class="summary">${esc(b.summary)}</p>` : ''}
 <main>
 	<div>
 		${section('experience', work)}
-		${section('selected work', projects)}
 		${section('publications', publications)}
 		${section('awards', awards)}
 	</div>
 	<div>
+		${section('selected work', projects)}
 		${section('skills', skills)}
 		${section('education', education)}
 		${section('certificates', certificates)}
