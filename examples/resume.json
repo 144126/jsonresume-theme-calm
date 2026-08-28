@@ -1,0 +1,216 @@
+{
+  "basics": {
+    "name": "Patience Edem Hogan",
+    "label": "Early Years Education Leader | Curriculum Developer | Montessori Specialist",
+    "email": "",
+    "phone": "0803 651 3400",
+    "location": {
+      "city": "Abuja",
+      "region": "FCT",
+      "countryCode": "NG"
+    },
+    "summary": "Innovative educational leader and passionate advocate for early years development with over two decades of experience across West Africa. Proven track record founding educational institutions, designing early years resources, and training educators in Montessori pedagogy. Combines a creative background in Theatre Arts with robust educational management to drive holistic child development and early literacy — currently advancing academic credentials while scaling cognitive development initiatives for youth."
+  },
+  "work": [
+    {
+      "name": "FCT Chess Federation",
+      "position": "Board Member",
+      "location": "Abuja, FCT",
+      "startDate": "",
+      "endDate": "",
+      "summary": "",
+      "highlights": [
+        "Advise on youth integration programmes across the Federal Capital Territory using chess as an educational tool"
+      ]
+    },
+    {
+      "name": "FCT Sports Council Chess Association",
+      "position": "Chairperson, Finance Committee",
+      "location": "Abuja, FCT",
+      "startDate": "",
+      "endDate": "",
+      "highlights": [
+        "Provide leadership for the finance team — planning, managing, monitoring and safeguarding all financial resources",
+        "Developed handbook ensuring financial stability, accountability, transparency and growth of the Association"
+      ]
+    },
+    {
+      "name": "Beee Project — Be Everything Excellent Every Day",
+      "position": "Founder / Director",
+      "location": "Abuja, FCT",
+      "startDate": "",
+      "endDate": "",
+      "highlights": [
+        "Lead youth development programmes leveraging chess to build strategic thinking, cognitive abilities and leadership"
+      ]
+    },
+    {
+      "name": "AngelWings Comprehensive College",
+      "position": "Founder / Director & Chief Curriculum Officer",
+      "location": "Nigeria",
+      "startDate": "2008",
+      "endDate": "2025",
+      "summary": "Crèche to Year 9 — directed full scope of school operations and curriculum strategy across nursery, primary and junior secondary.",
+      "highlights": [
+        "Spearheaded nursery early literacy programmes driving exceptional foundational reading skills",
+        "Integrated modern mathematical skills, phonics and AI teaching tools into daily instructional frameworks"
+      ]
+    },
+    {
+      "name": "National Association of Proprietors of Private Schools (NAPPS), Bwari Area Council",
+      "position": "Public Relations Officer",
+      "location": "Abuja, FCT",
+      "startDate": "2012",
+      "endDate": "2018",
+      "highlights": [
+        "Served as spokesperson and executed all PRO duties for NAPPS — communicated meeting schedules, acted as official voice and managed all internal and external communications",
+        "Organised outreach programmes and unified member schools across Bwari Area Council, fostering collaboration and advancing national NAPPS initiatives",
+        "Coordinated inter-school sports at the stadium and liaised with TV, radio and print media to drive publicity and ensure the events succeeded"
+      ]
+    },
+    {
+      "name": "The Child Project Africa (NGO)",
+      "position": "Director / Operator",
+      "location": "Ghana",
+      "startDate": "2003",
+      "endDate": "2006",
+      "highlights": [
+        "Managed educational advocacy programmes focusing on early childhood care and the impact of the environment on learning"
+      ]
+    },
+    {
+      "name": "Chevron Nigeria Limited",
+      "position": "Exclusive Contractor",
+      "location": "Lekki Estate & Ikoyi, Lagos",
+      "startDate": "1993",
+      "endDate": "2002",
+      "highlights": [
+        "Produced, installed and maintained Venetian and vertical blinds across Chevron's Lekki estate and Ikoyi guesthouse"
+      ]
+    },
+    {
+      "name": "Corporate Uniforms & Built Environment",
+      "position": "Producer / Contractor",
+      "location": "Lagos",
+      "startDate": "1992",
+      "endDate": "1993",
+      "highlights": [
+        "Produced corporate uniforms for Total Oil, Chevron Nigeria Limited and Mobil Oil",
+        "Constructed a swimming pool, gazebo and companion furniture for Chevron and Mobil"
+      ]
+    },
+    {
+      "name": "Government Secondary School, Lab Street",
+      "position": "English Literature Teacher",
+      "location": "New York City",
+      "startDate": "1990",
+      "endDate": "1991",
+      "highlights": [
+        "Taught English Literature at a government secondary school"
+      ]
+    },
+    {
+      "name": "Arts, Culture, Tailor and Designer",
+      "position": "Founder / Designer",
+      "location": "United States",
+      "startDate": "1990",
+      "endDate": "1993",
+      "highlights": [
+        "Exported ready-made clothes to the US",
+        "Produced exclusively handcrafted branded gifts for corporate firms — T-shirts, cups, hats, bags, makeup and jewellery"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Lesson Planning Template & Guide",
+      "description": "Comprehensive planning frameworks tailored for Early Years, Primary and Secondary education.",
+      "highlights": []
+    },
+    {
+      "name": "Early Literacy & Handwriting Resources",
+      "description": "Specialized handwriting materials to accelerate fine motor skills and literacy in Early Years, Primary and Secondary students.",
+      "highlights": []
+    },
+    {
+      "name": "Early Years Care Routine Journal",
+      "description": "Structured tracking journal to optimise daily care routines for early years practitioners.",
+      "highlights": []
+    },
+    {
+      "name": "Educator Pedagogy Training",
+      "description": "Modules and teacher training in Montessori methods and early childhood pedagogy.",
+      "highlights": []
+    }
+  ],
+  "education": [
+    {
+      "institution": "National Teachers Institute",
+      "studyType": "PGDE",
+      "area": "Education",
+      "startDate": "",
+      "endDate": "",
+      "score": "In View"
+    },
+    {
+      "institution": "University of Benin, Edo State",
+      "studyType": "B.Sc.",
+      "area": "Theatre Arts",
+      "startDate": "",
+      "endDate": "",
+      "score": ""
+    }
+  ],
+  "skills": [
+    {
+      "name": "Early Childhood",
+      "level": "",
+      "keywords": ["Early Childhood Education & Literacy", "Montessori Pedagogy & Teacher Training"]
+    },
+    {
+      "name": "Curriculum & Leadership",
+      "level": "",
+      "keywords": ["Curriculum Design & Resource Publishing", "School Administration & Leadership"]
+    },
+    {
+      "name": "Innovation",
+      "level": "",
+      "keywords": ["AI in Education & Modern Methodologies", "Cognitive Youth Leadership Coaching"]
+    }
+  ],
+  "certificates": [
+    {
+      "name": "Education Methodologies & Pedagogy",
+      "issuer": "Continuous Professional Development",
+      "date": ""
+    },
+    {
+      "name": "Phonics & Early Literacy",
+      "issuer": "Continuous Professional Development",
+      "date": ""
+    },
+    {
+      "name": "Mental Mathematics Development for Basic Schools",
+      "issuer": "Continuous Professional Development",
+      "date": ""
+    },
+    {
+      "name": "Artificial Intelligence in Education",
+      "issuer": "Continuous Professional Development",
+      "date": ""
+    },
+    {
+      "name": "School Administration",
+      "issuer": "Continuous Professional Development",
+      "date": ""
+    },
+    {
+      "name": "Grade 1 Examination in Singing (Soprano)",
+      "issuer": "Musical Society of Nigeria (MUSON) School of Music",
+      "date": "1998-05-29"
+    }
+  ],
+  "languages": [],
+  "interests": [],
+  "references": []
+}
