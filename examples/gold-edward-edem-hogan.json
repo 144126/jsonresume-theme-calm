@@ -1,0 +1,230 @@
+{
+  "$schema": "https://jsonresume.org/schema/",
+  "basics": {
+    "name": "Gold Edward Edem Hogan",
+    "label": "AI Integration Engineer at PilotSpan LLC | BSc. IT (2023) | SvelteKit, Rust, AI & Cloud",
+    "email": "1440fl@gmail.com",
+    "phone": "+2349017743168",
+    "profiles": [
+      {
+        "network": "GitHub",
+        "username": "144126",
+        "url": "https://github.com/144126"
+      }
+    ],
+    "summary": "AI Integration Engineer at PilotSpan LLC. Full-stack developer in SvelteKit, TypeScript, Python, and Rust. Builds AI-driven applications, scalable web platforms, and algorithmic trading systems. Deploys end to end on AWS, Cloudflare, Docker, and CI/CD."
+  },
+  "work": [
+    {
+      "name": "PilotSpan LLC",
+      "position": "AI Integration Engineer",
+      "startDate": "2026-08",
+      "summary": "AI integration engineering."
+    }
+  ],
+  "skills": [
+    {
+      "name": "SvelteKit",
+      "level": "Expert",
+      "keywords": [
+        "6 years"
+      ]
+    },
+    {
+      "name": "Python",
+      "level": "Intermediate",
+      "keywords": [
+        "9 years"
+      ]
+    },
+    {
+      "name": "TypeScript",
+      "level": "Intermediate",
+      "keywords": [
+        "6 years"
+      ]
+    },
+    {
+      "name": "Rust",
+      "level": "Intermediate",
+      "keywords": [
+        "4 years"
+      ]
+    },
+    {
+      "name": "Frontend",
+      "keywords": [
+        "SvelteJS",
+        "React",
+        "HTML/JSX",
+        "Tailwind CSS",
+        "Carbon Components",
+        "Material UI"
+      ]
+    },
+    {
+      "name": "Backend",
+      "keywords": [
+        "Node.js",
+        "PostgreSQL",
+        "MongoDB",
+        "Redis",
+        "Supabase",
+        "REST APIs",
+        "WebSockets",
+        "Deno"
+      ]
+    },
+    {
+      "name": "Cloud & DevOps",
+      "keywords": [
+        "AWS (Lightsail, EC2)",
+        "Linux",
+        "Docker",
+        "GitHub Actions",
+        "CI/CD Pipelines",
+        "Serverless",
+        "Cloudflare",
+        "Cloudflare R2",
+        "Cloudflare Workers Builds",
+        "Vercel",
+        "Netlify",
+        "Heroku"
+      ]
+    },
+    {
+      "name": "Architecture & Tooling",
+      "keywords": [
+        "API Design",
+        "Microservices",
+        "CLI Tools",
+        "NPM Package Publishing"
+      ]
+    },
+    {
+      "name": "Algorithmic Trading & AI",
+      "keywords": [
+        "MQL5",
+        "ONNX",
+        "ccxt",
+        "Qdrant (Vector Embeddings)",
+        "OpenRouter (LLM & Embeddings)",
+        "Google OAuth",
+        "Machine Learning Pipelines"
+      ]
+    },
+    {
+      "name": "Design & Media",
+      "keywords": [
+        "Figma",
+        "Inkscape",
+        "CorelDRAW",
+        "FL Studio",
+        "Video Editing"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "calm — JSON Resume theme",
+      "description": "Published npm theme (jsonresume-theme-calm) that fits any resume onto a single A4 page, sizing its own type between 6.8pt and 10.4pt to match how much you wrote. Its site renders any GitHub user's resume.json gist client-side, so no server ever holds a resume.",
+      "website": "https://calm.apexlinks.org"
+    },
+    {
+      "name": "DevCircles Industry Insight Report",
+      "description": "Investor-facing directory of 43 products built by the DevCircles community. SvelteKit on Cloudflare Workers with Qdrant as the only datastore; deal cards ordered silently by traction, dated figures with freshness decay, grouping by traction/sector/country/state, raising filters and a /raising page, investor interest capture routed to an owner inbox, and JSON-LD for search. Builders sign in with Google to edit their own listing.",
+      "website": "https://devcircles.apexlinks.org"
+    },
+    {
+      "name": "x2",
+      "description": "SvelteKit social app where you search rooms built around shared interests, join in a click, or match one-to-one — no feed, no profile to perform for. Runs on Cloudflare Workers with a Qdrant vector store, WebSocket realtime, push notifications, groups, emoji/stickers and R2 image upload, plus an AI thread powered by the Vercel AI SDK with streaming reasoning. Google OAuth and Paystack integrated.",
+      "website": "https://x2.apexlinks.workers.dev"
+    },
+    {
+      "name": "Chess AI Training App",
+      "description": "Chess training platform where users play Stockfish across 10 difficulty levels. The Groq AI coach has full awareness of the board state and move history — it explains why each hint is suggested and answers any question like why the opponent made a particular move. Features Google OAuth, Paystack payments, Cloudflare Workers.",
+      "website": "https://chess.apexlinks.org"
+    },
+    {
+      "name": "MT5 Neural Network EAs",
+      "description": "Algorithmic trading system for MetaTrader 5 (Gold & Bitcoin). Features Python scripts for tick data processing and training Mamba state-space neural networks. Exports trained AI models to ONNX format for live execution in MQL5.",
+      "website": "https://github.com/angelwingscomms/mt5-nn-ea"
+    },
+    {
+      "name": "Crypto Arbitrage Bot",
+      "description": "Automated cryptocurrency arbitrage trading system built in TypeScript. Leverages the ccxt library to monitor and execute cross-exchange arbitrage opportunities.",
+      "website": "https://github.com/angelwingscomms/crypto-arbitrage"
+    },
+    {
+      "name": "ApexLinks",
+      "description": "SvelteKit platform to list businesses, products, and services. Features AI-powered vector search for blogs/listings and an integrated AI resume builder that autonomously generates complete content and styling.",
+      "website": "https://apexlinks.org"
+    },
+    {
+      "name": "AI Image Creation Assistant",
+      "description": "Prompt engineering tool that helps users craft robust AI image prompts. Features a click-and-drop library for style and scenario keywords, and integrates directly with DALL-E / image generation APIs to render outputs."
+    },
+    {
+      "name": "Image Scale",
+      "description": "SvelteKit web tool for image rescaling. Core resizing logic is implemented in Rust and compiled to WASM for high performance, featuring user toggles to preserve the original aspect ratio.",
+      "website": "https://4320.vercel.app/images/scale"
+    },
+    {
+      "name": "Report Card Management Webapp",
+      "description": "School management system backed by Qdrant and SvelteKit. Enables teachers to log student scores, auto-computes final pass/fail grades, and generates comprehensive PDF report cards at the end of the term."
+    },
+    {
+      "name": "Travel Ticketing WebApp Frontend",
+      "description": "React-based flight booking UI allowing users to input travel dates and select their preferred plane and seats (TIIDELab team project)."
+    },
+    {
+      "name": "CBT Web App",
+      "description": "Full-stack SvelteKit application for educators to create, save, and administer quizzes and tests, supporting objective, short-answer, and essay question formats."
+    },
+    {
+      "name": "c6 — Site Ledger",
+      "description": "Material & progress control app for small residential builders. Track every material order → delivery → usage, enforce engineer benchmarks, and surface discrepancies (negative stock, over-delivery, waste) in real time, plus drawings, milestones, and a grounded AI site assistant. Built as a single SvelteKit app on Cloudflare Workers: Qdrant as the only datastore with semantic search, Cloudflare R2 for drawings/photos, OpenRouter embeddings + chat, Google OAuth sign-in with HMAC-signed sessions, secrets via Cloudflare Secrets Store and deployed through Workers Builds CI.",
+      "website": "https://github.com/angelwingscomms/c6"
+    }
+  ],
+  "education": [
+    {
+      "institution": "Knutsford University College",
+      "area": "Information Technology",
+      "studyType": "BSc",
+      "endDate": "2023"
+    }
+  ],
+  "certificates": [
+    {
+      "name": "6-month Front End Web Development Training",
+      "issuer": "TIIDELab",
+      "date": "2023"
+    }
+  ],
+  "volunteer": [
+    {
+      "organization": "PlanB Summer Camp",
+      "position": "Volunteer Teacher",
+      "description": "Taught basic web development in a bootcamp.",
+      "startDate": "2024",
+      "endDate": "2024"
+    }
+  ],
+  "interests": [
+    {
+      "name": "Audio Engineering",
+      "keywords": [
+        "Music Production",
+        "Beat Production"
+      ]
+    },
+    {
+      "name": "Psychology",
+      "keywords": [
+        "Cognitive Psychology",
+        "Behavioral Patterns"
+      ]
+    }
+  ]
+}

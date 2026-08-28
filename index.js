@@ -74,17 +74,19 @@ function render(resume) {
 		)
 		.join('');
 
-	const projects = (resume.projects ?? [])
-		.map((p) =>
-			entry(
-				p.name,
-				'',
-				range(p.startDate, p.endDate),
-				p.website || p.url,
-				`<p>${esc(clamp(p.description, 150))}</p>` + bullets(p.highlights)
-			)
+	const project_items = (resume.projects ?? []).map((p) =>
+		entry(
+			p.name,
+			'',
+			range(p.startDate, p.endDate),
+			p.website || p.url,
+			`<p>${esc(clamp(p.description, 150))}</p>` + bullets(p.highlights)
 		)
-		.join('');
+	);
+	const left_n = Math.min(5, project_items.length);
+	const projects_left = project_items.slice(-left_n).join('');
+	const projects_right = project_items.slice(0, project_items.length - left_n).join('');
+	const projects = project_items.join('');
 
 	const publications = (resume.publications ?? [])
 		.map((p) => line(p.name, dot([esc(p.publisher), when(p.releaseDate)])) + note(p.summary, 150))
@@ -271,14 +273,15 @@ ${b.summary ? `<p class="summary">${esc(b.summary)}</p>` : ''}
 	${section('references', references)}`
 		: `<div>
 		${section('experience', work)}
+		${projects_left ? section('selected work', projects_left) : ''}
 		${section('publications', publications)}
 		${section('awards', awards)}
-	</div>
-	<div>
-		${section('selected work', projects)}
 		${section('skills', skills)}
 		${section('education', education)}
 		${section('certificates', certificates)}
+	</div>
+	<div>
+		${projects_right ? section('selected work', projects_right) : ''}
 		${section('volunteering', volunteer)}
 		${section('languages', languages)}
 		${section('interests', interests)}
@@ -288,14 +291,14 @@ ${b.summary ? `<p class="summary">${esc(b.summary)}</p>` : ''}
 <script>
 (function () {
 	var body = document.body;
-	var pad = parseFloat(getComputedStyle(body).paddingBottom);
 	var fits = function () {
 		return body.scrollHeight <= body.clientHeight + 1;
 	};
 	var one = document.querySelector('main.one');
-	var best = one ? 9.2 : 8.0;
-	var cap = one ? 11.0 : 11.2;
-	for (var size = best; size <= cap; size += 0.1) {
+	var lo = 6.4;
+	var hi = one ? 11.0 : 11.2;
+	var best = lo;
+	for (var size = lo; size <= hi; size += 0.1) {
 		body.style.fontSize = size.toFixed(1) + 'pt';
 		if (!fits()) break;
 		best = size;

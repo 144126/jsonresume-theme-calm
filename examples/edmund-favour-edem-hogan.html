@@ -140,14 +140,14 @@ li::before { content: '·'; position: absolute; left: .7mm; color: var(--sage); 
 <script>
 (function () {
 	var body = document.body;
-	var pad = parseFloat(getComputedStyle(body).paddingBottom);
 	var fits = function () {
 		return body.scrollHeight <= body.clientHeight + 1;
 	};
 	var one = document.querySelector('main.one');
-	var best = one ? 9.2 : 8.0;
-	var cap = one ? 11.0 : 11.2;
-	for (var size = best; size <= cap; size += 0.1) {
+	var lo = 6.4;
+	var hi = one ? 11.0 : 11.2;
+	var best = lo;
+	for (var size = lo; size <= hi; size += 0.1) {
 		body.style.fontSize = size.toFixed(1) + 'pt';
 		if (!fits()) break;
 		best = size;
