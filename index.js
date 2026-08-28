@@ -48,6 +48,7 @@ const entry = (title, org, dates, url, body) => `<article>
 function render(resume) {
 	const b = resume.basics ?? {};
 	const l = b.location ?? {};
+	const one = (resume.meta ?? {}).layout === 'one';
 
 	const contact = dot([
 		b.email && `<a href="mailto:${esc(b.email)}">${esc(b.email)}</a>`,
@@ -199,6 +200,7 @@ main {
 	column-gap: 9mm;
 	padding-top: 4mm;
 }
+main.one { display: block; }
 
 section { margin-bottom: 4mm; }
 section:last-child { margin-bottom: 0; }
@@ -251,8 +253,20 @@ li::before { content: '·'; position: absolute; left: .7mm; color: var(--sage); 
 	${contact ? `<p class="contact">${contact}</p>` : ''}
 </header>
 ${b.summary ? `<p class="summary">${esc(b.summary)}</p>` : ''}
-<main>
-	<div>
+<main${one ? ' class="one"' : ''}>
+	${one
+		? `${section('experience', work)}
+	${section('selected work', projects)}
+	${section('publications', publications)}
+	${section('awards', awards)}
+	${section('skills', skills)}
+	${section('education', education)}
+	${section('certificates', certificates)}
+	${section('volunteering', volunteer)}
+	${section('languages', languages)}
+	${section('interests', interests)}
+	${section('references', references)}`
+		: `<div>
 		${section('experience', work)}
 		${section('publications', publications)}
 		${section('awards', awards)}
@@ -266,7 +280,7 @@ ${b.summary ? `<p class="summary">${esc(b.summary)}</p>` : ''}
 		${section('languages', languages)}
 		${section('interests', interests)}
 		${section('references', references)}
-	</div>
+	</div>`}
 </main>
 <script>
 (function () {
@@ -275,8 +289,10 @@ ${b.summary ? `<p class="summary">${esc(b.summary)}</p>` : ''}
 	var fits = function () {
 		return body.scrollHeight <= body.clientHeight + 1;
 	};
-	var best = 7.2;
-	for (var size = 7.2; size <= 11.2; size += 0.1) {
+	var one = document.querySelector('main.one');
+	var best = one ? 8.4 : 7.2;
+	var cap = one ? 10.0 : 11.2;
+	for (var size = best; size <= cap; size += 0.1) {
 		body.style.fontSize = size.toFixed(1) + 'pt';
 		if (!fits()) break;
 		best = size;
