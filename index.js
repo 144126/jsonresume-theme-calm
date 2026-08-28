@@ -156,7 +156,8 @@ function render(resume) {
 html { background: #eceae4; }
 body {
 	width: 210mm;
-	min-height: 297mm;
+	height: 297mm;
+	overflow: hidden;
 	margin: 0 auto;
 	padding: 11mm 14mm 8mm;
 	background: var(--paper);
@@ -237,7 +238,10 @@ li::before { content: '·'; position: absolute; left: .7mm; color: var(--sage); 
 .rest { color: var(--soft); }
 .note { color: var(--soft); margin: 0.8mm 0 1.9mm; line-height: 1.47; }
 
-@media print { html { background: var(--paper); } }
+@media print {
+	html { background: var(--paper); }
+	body { width: 210mm; height: 297mm; margin: 0; overflow: hidden; }
+}
 </style>
 </head>
 <body>
@@ -266,19 +270,18 @@ ${b.summary ? `<p class="summary">${esc(b.summary)}</p>` : ''}
 </main>
 <script>
 (function () {
-	var main = document.querySelector('main');
-	var pad = parseFloat(getComputedStyle(document.body).paddingBottom);
-	var page = (297 / 25.4) * 96 - 6;
+	var body = document.body;
+	var pad = parseFloat(getComputedStyle(body).paddingBottom);
 	var fits = function () {
-		return main.getBoundingClientRect().bottom + window.scrollY + pad <= page;
+		return body.scrollHeight <= body.clientHeight + 1;
 	};
-	var best = 8.2;
-	for (var size = 8.2; size <= 11.2; size += 0.1) {
-		document.body.style.fontSize = size.toFixed(1) + 'pt';
+	var best = 7.2;
+	for (var size = 7.2; size <= 11.2; size += 0.1) {
+		body.style.fontSize = size.toFixed(1) + 'pt';
 		if (!fits()) break;
 		best = size;
 	}
-	document.body.style.fontSize = best.toFixed(1) + 'pt';
+	body.style.fontSize = best.toFixed(1) + 'pt';
 })();
 </script>
 </body>
