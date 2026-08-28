@@ -162,7 +162,7 @@ body {
 	background: var(--paper);
 	color: var(--soft);
 	font-family: var(--sans);
-	font-size: 8.6pt;
+	font-size: 9.4pt;
 	line-height: 1.5;
 	-webkit-font-smoothing: antialiased;
 }
@@ -193,9 +193,9 @@ h1 {
 }
 
 main {
-	column-count: 2;
+	display: grid;
+	grid-template-columns: 1.34fr 1fr;
 	column-gap: 9mm;
-	column-fill: auto;
 	padding-top: 5.5mm;
 }
 
@@ -248,17 +248,21 @@ li::before { content: '·'; position: absolute; left: .7mm; color: var(--sage); 
 </header>
 ${b.summary ? `<p class="summary">${esc(b.summary)}</p>` : ''}
 <main>
-	${section('experience', work)}
-	${section('selected work', projects)}
-	${section('publications', publications)}
-	${section('awards', awards)}
-	${section('skills', skills)}
-	${section('education', education)}
-	${section('certificates', certificates)}
-	${section('volunteering', volunteer)}
-	${section('languages', languages)}
-	${section('interests', interests)}
-	${section('references', references)}
+	<div>
+		${section('experience', work)}
+		${section('selected work', projects)}
+		${section('publications', publications)}
+		${section('awards', awards)}
+	</div>
+	<div>
+		${section('skills', skills)}
+		${section('education', education)}
+		${section('certificates', certificates)}
+		${section('volunteering', volunteer)}
+		${section('languages', languages)}
+		${section('interests', interests)}
+		${section('references', references)}
+	</div>
 </main>
 <script>
 (function () {
@@ -268,8 +272,8 @@ ${b.summary ? `<p class="summary">${esc(b.summary)}</p>` : ''}
 	var fits = function () {
 		return main.getBoundingClientRect().bottom + window.scrollY + pad <= page;
 	};
-	var best = 6.8;
-	for (var size = 6.8; size <= 10.4; size += 0.1) {
+	var best = 8.2;
+	for (var size = 8.2; size <= 11.2; size += 0.1) {
 		document.body.style.fontSize = size.toFixed(1) + 'pt';
 		if (!fits()) break;
 		best = size;
