@@ -158,7 +158,7 @@ body {
 	width: 210mm;
 	min-height: 297mm;
 	margin: 0 auto;
-	padding: 13mm 14mm 10mm;
+	padding: 11mm 14mm 8mm;
 	background: var(--paper);
 	color: var(--soft);
 	font-family: var(--sans);
@@ -169,7 +169,7 @@ body {
 a { color: var(--sage-deep); text-decoration: none; }
 .sep { color: var(--faint); padding: 0 .12em; }
 
-header { text-align: center; padding-bottom: 5.5mm; }
+header { text-align: center; padding-bottom: 4mm; }
 h1 {
 	font-family: var(--serif);
 	font-size: 2.45em;
@@ -184,7 +184,7 @@ h1 {
 .summary {
 	max-width: 168mm;
 	margin: 0 auto;
-	padding: 4mm 0 5.5mm;
+	padding: 3.2mm 0 4mm;
 	border-top: .3pt solid var(--line);
 	border-bottom: .3pt solid var(--line);
 	text-align: center;
@@ -196,10 +196,10 @@ main {
 	display: grid;
 	grid-template-columns: 1.34fr 1fr;
 	column-gap: 9mm;
-	padding-top: 5.5mm;
+	padding-top: 4mm;
 }
 
-section { margin-bottom: 5mm; }
+section { margin-bottom: 4mm; }
 section:last-child { margin-bottom: 0; }
 h2 {
 	font-size: .84em;
@@ -212,7 +212,7 @@ h2 {
 	border-bottom: .3pt solid var(--line);
 }
 
-article { margin-bottom: 2.6mm; break-inside: avoid; }
+article { margin-bottom: 2mm; break-inside: avoid; }
 h3 {
 	display: flex;
 	flex-wrap: wrap;
