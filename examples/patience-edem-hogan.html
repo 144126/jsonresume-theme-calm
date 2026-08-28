@@ -65,6 +65,9 @@ main {
 	padding-top: 4mm;
 }
 main.one { display: block; }
+main.one section { margin-bottom: 7mm; }
+main.one article { margin-bottom: 3.6mm; }
+main.one .line { margin-bottom: 2.6mm; }
 
 section { margin-bottom: 4mm; }
 section:last-child { margin-bottom: 0; }
@@ -141,7 +144,7 @@ li::before { content: '·'; position: absolute; left: .7mm; color: var(--sage); 
 	<h3>Educator Pedagogy Training</h3><p>Modules and teacher training in Montessori methods and early childhood pedagogy.</p></article></section>
 		<section><h2>skills</h2><p class="line"><span class="lead">Early Childhood</span> <span class="rest">Early Childhood Education &amp; Literacy <span class="sep">·</span> Montessori Pedagogy &amp; Teacher Training</span></p><p class="line"><span class="lead">Curriculum &amp; Leadership</span> <span class="rest">Curriculum Design &amp; Resource Publishing <span class="sep">·</span> School Administration &amp; Leadership</span></p><p class="line"><span class="lead">Innovation</span> <span class="rest">AI in Education &amp; Modern Methodologies <span class="sep">·</span> Cognitive Youth Leadership Coaching</span></p></section>
 		<section><h2>education</h2><p class="line"><span class="lead">PGDE Education</span> <span class="rest">National Teachers Institute <span class="sep">·</span> In View</span></p><p class="line"><span class="lead">B.Sc. Theatre Arts</span> <span class="rest">University of Benin, Edo State</span></p></section>
-		<section><h2>certificates</h2><p class="line"><span class="lead">Education Methodologies &amp; Pedagogy</span> <span class="rest">Continuous Professional Development</span></p><p class="line"><span class="lead">Phonics &amp; Early Literacy</span> <span class="rest">Continuous Professional Development</span></p><p class="line"><span class="lead">Mental Mathematics Development for Basic Schools</span> <span class="rest">Continuous Professional Development</span></p><p class="line"><span class="lead">Artificial Intelligence in Education</span> <span class="rest">Continuous Professional Development</span></p><p class="line"><span class="lead">School Administration</span> <span class="rest">Continuous Professional Development</span></p><p class="line"><span class="lead">Grade 1 Examination in Singing (Soprano)</span> <span class="rest">Musical Society of Nigeria (MUSON) School of Music <span class="sep">·</span> May 1998</span></p><p class="line"><span class="lead">Child Protection Training &amp; Membership</span> <span class="rest">Child Rights Brigade <span class="sep">·</span> Mar 2011</span></p></section>
+		<section><h2>certificates</h2><p class="line"><span class="lead">Education Methodologies &amp; Pedagogy</span> <span class="rest">Continuous Professional Development</span></p><p class="line"><span class="lead">Phonics &amp; Early Literacy</span> <span class="rest">Continuous Professional Development</span></p><p class="line"><span class="lead">Mental Mathematics Development for Basic Schools</span> <span class="rest">Continuous Professional Development</span></p><p class="line"><span class="lead">Artificial Intelligence in Education</span> <span class="rest">Continuous Professional Development</span></p><p class="line"><span class="lead">School Administration</span> <span class="rest">Continuous Professional Development</span></p><p class="line"><span class="lead">Grade 1 Examination in Singing (Soprano)</span> <span class="rest">Musical Society of Nigeria (MUSON) School of Music <span class="sep">·</span> May 1998</span></p><p class="line"><span class="lead">Child Protection Training &amp; Membership</span> <span class="rest">Child Rights Brigade <span class="sep">·</span> Mar 2011</span></p><p class="line"><span class="lead">TETC 3.0 — K-12 Track (TETC-1964)</span> <span class="rest">Tech Enabled Teachers Conference <span class="sep">·</span> Aug 2026</span></p></section>
 		
 		
 		
@@ -156,8 +159,8 @@ li::before { content: '·'; position: absolute; left: .7mm; color: var(--sage); 
 		return body.scrollHeight <= body.clientHeight + 1;
 	};
 	var one = document.querySelector('main.one');
-	var best = one ? 8.4 : 7.2;
-	var cap = one ? 10.0 : 11.2;
+	var best = one ? 9.2 : 7.2;
+	var cap = one ? 11.0 : 11.2;
 	for (var size = best; size <= cap; size += 0.1) {
 		body.style.fontSize = size.toFixed(1) + 'pt';
 		if (!fits()) break;
