@@ -193,9 +193,9 @@ h1 {
 }
 
 main {
-	display: grid;
-	grid-template-columns: 1.34fr 1fr;
+	column-count: 2;
 	column-gap: 9mm;
+	column-fill: auto;
 	padding-top: 5.5mm;
 }
 
@@ -248,21 +248,17 @@ li::before { content: '·'; position: absolute; left: .7mm; color: var(--sage); 
 </header>
 ${b.summary ? `<p class="summary">${esc(b.summary)}</p>` : ''}
 <main>
-	<div>
-		${section('experience', work)}
-		${section('selected work', projects)}
-		${section('publications', publications)}
-		${section('awards', awards)}
-	</div>
-	<div>
-		${section('skills', skills)}
-		${section('education', education)}
-		${section('certificates', certificates)}
-		${section('volunteering', volunteer)}
-		${section('languages', languages)}
-		${section('interests', interests)}
-		${section('references', references)}
-	</div>
+	${section('experience', work)}
+	${section('selected work', projects)}
+	${section('publications', publications)}
+	${section('awards', awards)}
+	${section('skills', skills)}
+	${section('education', education)}
+	${section('certificates', certificates)}
+	${section('volunteering', volunteer)}
+	${section('languages', languages)}
+	${section('interests', interests)}
+	${section('references', references)}
 </main>
 <script>
 (function () {
