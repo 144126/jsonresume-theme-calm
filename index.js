@@ -293,7 +293,7 @@ ${b.summary ? `<p class="summary">${esc(b.summary)}</p>` : ''}
 		return body.scrollHeight <= body.clientHeight + 1;
 	};
 	var one = document.querySelector('main.one');
-	var best = one ? 9.2 : 7.2;
+	var best = one ? 9.2 : 8.0;
 	var cap = one ? 11.0 : 11.2;
 	for (var size = best; size <= cap; size += 0.1) {
 		body.style.fontSize = size.toFixed(1) + 'pt';
