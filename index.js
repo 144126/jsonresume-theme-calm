@@ -142,11 +142,11 @@ function render(resume) {
 <style>
 :root {
 	--paper: #fdfcf9;
-	--ink: #38434b;
-	--soft: #5f6e74;
-	--faint: #94a09f;
-	--sage: #7b9a8e;
-	--sage-deep: #5b7d70;
+	--ink: #000;
+	--soft: #000;
+	--faint: #000;
+	--sage: #000;
+	--sage-deep: #000;
 	--line: #e7e6de;
 	--serif: 'Noto Serif', Cambria, Georgia, serif;
 	--sans: 'Noto Sans', 'Segoe UI', system-ui, sans-serif;
@@ -204,9 +204,9 @@ section:last-child { margin-bottom: 0; }
 h2 {
 	font-size: .84em;
 	font-weight: 600;
-	letter-spacing: .18em;
-	text-transform: lowercase;
-	color: var(--sage);
+	letter-spacing: .06em;
+	text-transform: capitalize;
+	color: var(--ink);
 	padding-bottom: 1.1mm;
 	margin-bottom: 2.4mm;
 	border-bottom: .3pt solid var(--line);
@@ -235,7 +235,7 @@ li::before { content: '·'; position: absolute; left: .7mm; color: var(--sage); 
 .line { margin-bottom: 1.9mm; line-height: 1.45; }
 .lead { color: var(--ink); font-weight: 600; }
 .rest { color: var(--soft); }
-.note { color: var(--soft); margin: -1.3mm 0 1.9mm; line-height: 1.47; }
+.note { color: var(--soft); margin: 0.8mm 0 1.9mm; line-height: 1.47; }
 
 @media print { html { background: var(--paper); } }
 </style>
