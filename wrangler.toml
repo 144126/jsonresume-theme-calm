@@ -8,7 +8,7 @@ binding = "ASSETS"
 not_found_handling = "single-page-application"
 
 [vars]
-GITHUB_CLIENT_ID = ""
+GITHUB_CLIENT_ID = "Ov23lip4kFTlYN0z0Xs9"
 
 [[routes]]
 pattern = "calm.apexlinks.org"
