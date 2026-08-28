@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "layout": "one"
+  },
+  "basics": {
+    "name": "Edmund Favour Edem Hogan",
+    "label": "Software Engineer",
+    "email": "edhogan69@gmail.com",
+    "phone": "+2349131910057",
+    "location": {
+      "city": "Abuja",
+      "region": "FCT",
+      "countryCode": "NG"
+    }
+  },
+  "work": [
+    {
+      "name": "BEEE Project",
+      "position": "Co-Director, Software Engineer, and Event Manager",
+      "location": "Abuja, Nigeria",
+      "startDate": "2026-01-01",
+      "endDate": "",
+      "summary": "A youth development organisation dealing in co-curricular education, STEM, and sports.",
+      "highlights": []
+    },
+    {
+      "name": "Giddies Cuisine",
+      "position": "Inventory and Income/Expense Accountant",
+      "location": "Garki 2, Abuja, Nigeria",
+      "startDate": "2025-01-01",
+      "endDate": "2025-12-31",
+      "summary": "A food and pastry business.",
+      "highlights": [
+        "Designed the development of an e-commerce web application for the company to sell its goods online."
+      ]
+    },
+    {
+      "name": "AngelWings Comprehensive College",
+      "position": "School Fees Accountant / Exam Officer",
+      "location": "Kubwa, Abuja, Nigeria",
+      "startDate": "2023-01-01",
+      "endDate": "2025-12-31",
+      "highlights": [
+        "Handled school fees accounting and communicated with parents concerning their wards' fees and other school correspondence.",
+        "Migrated the school's financial and student records from pen-and-paper to digital systems.",
+        "Automated communication with parents and the updating of student and financial records.",
+        "Co-pioneered the introduction of computer-based examinations (CBT).",
+        "Automated student assessment result generation with a web application."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Taskify",
+      "description": "A productivity web application for task management.",
+      "highlights": [
+        "Founded and developed the application."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "NCC Education and University of Lancashire, UK",
+      "studyType": "B.Sc.",
+      "area": "Computing",
+      "startDate": "2023-01-01",
+      "endDate": "2027-12-31"
+    },
+    {
+      "institution": "Government Day Secondary School, Wuse 2, Abuja, Nigeria",
+      "studyType": "Senior Secondary School Certificate",
+      "area": "",
+      "endDate": "2021-12-31"
+    }
+  ],
+  "certificates": [
+    {
+      "name": "TETC 3.0 — Higher Education Track (TETC-2639)",
+      "issuer": "Tech Enabled Teachers Conference",
+      "date": "2026-08-22"
+    },
+    {
+      "name": "TETC 3.0 — K-12 Track (TETC-2030)",
+      "issuer": "Tech Enabled Teachers Conference",
+      "date": "2026-08-08"
+    },
+    {
+      "name": "Advanced Data Science",
+      "date": "2026-10"
+    },
+    {
+      "name": "Introduction to Data Science",
+      "date": "2026-10"
+    }
+  ]
+}
