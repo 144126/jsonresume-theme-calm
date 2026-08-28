@@ -31,5 +31,9 @@
     "test": "node test.js",
     "build:site": "node scripts/site.js",
     "deploy": "node scripts/site.js && wrangler deploy"
+  },
+  "dependencies": {
+    "@ai-sdk/openai": "^4.0.50",
+    "ai": "^7.0.83"
   }
 }

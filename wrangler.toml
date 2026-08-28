@@ -1,9 +1,14 @@
 name = "calm"
+main = "worker.js"
 compatibility_date = "2026-08-12"
 
 [assets]
 directory = "./site"
+binding = "ASSETS"
 not_found_handling = "single-page-application"
+
+[vars]
+GITHUB_CLIENT_ID = ""
 
 [[routes]]
 pattern = "calm.apexlinks.org"

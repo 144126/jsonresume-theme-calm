@@ -51,12 +51,15 @@ Type is Noto Serif for the name, Noto Sans for everything else, with system fall
 
 ## the site
 
-`site/` is the page behind [calm.apexlinks.org](https://calm.apexlinks.org) — one static HTML file, no server. It reads the visitor's chosen gist straight from the GitHub API in their browser, so the rate limit is theirs and nothing is stored anywhere.
+`site/` is the page behind [calm.apexlinks.org](https://calm.apexlinks.org). Visitors still read a public `resume.json` gist in the browser. Log in with GitHub to edit your own gist (including a secret one) from the chat on the right — voice input uses groq whisper, chunked the same way as long recordings.
 
 ```sh
 npm run build:site   # regenerates site/theme.js from index.js
 npm run deploy       # + wrangler deploy
 ```
+
+Owner edit needs a GitHub OAuth app (callback `/callback`, scope `gist`) and these worker secrets: `GITHUB_CLIENT_SECRET`, `GROQ_API_KEY`, `OPENCODE_API_KEY`. `GITHUB_CLIENT_ID` is a wrangler var. Local: `.dev.vars`, then `wrangler dev`.
+
 
 ## license
 
