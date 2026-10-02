@@ -21,8 +21,7 @@
 html { background: #eceae4; }
 body {
 	width: 210mm;
-	height: 297mm;
-	overflow: hidden;
+	min-height: 297mm;
 	margin: 0 auto;
 	padding: 11mm 14mm 8mm;
 	background: var(--paper);
@@ -32,10 +31,23 @@ body {
 	line-height: 1.5;
 	-webkit-font-smoothing: antialiased;
 }
+body.paged {
+	min-height: 0;
+	padding: 0;
+	background: transparent;
+}
+.sheet {
+	width: 210mm;
+	height: 297mm;
+	overflow: hidden;
+	margin: 0 0 8mm;
+	padding: 11mm 14mm 8mm;
+	background: var(--paper);
+}
 a { color: var(--sage-deep); text-decoration: none; }
 .sep { color: var(--faint); padding: 0 .12em; }
 
-header { text-align: center; padding-bottom: 4mm; }
+header { text-align: center; padding-bottom: 4mm; break-inside: avoid; }
 h1 {
 	font-family: var(--serif);
 	font-size: 2.45em;
@@ -56,6 +68,7 @@ h1 {
 	text-align: center;
 	font-size: .98em;
 	line-height: 1.62;
+	break-inside: avoid;
 }
 
 main {
@@ -63,11 +76,12 @@ main {
 	grid-template-columns: 1.34fr 1fr;
 	column-gap: 9mm;
 	padding-top: 4mm;
+	align-items: start;
 }
 main.one { display: block; }
 main.one section { margin-bottom: 7mm; }
 main.one article { margin-bottom: 3.6mm; }
-main.one .line { margin-bottom: 2.6mm; }
+main.one .item { margin-bottom: 2.6mm; }
 
 section { margin-bottom: 4mm; }
 section:last-child { margin-bottom: 0; }
@@ -80,9 +94,11 @@ h2 {
 	padding-bottom: 1.1mm;
 	margin-bottom: 2.4mm;
 	border-bottom: .3pt solid var(--line);
+	break-after: avoid;
+	page-break-after: avoid;
 }
 
-article { margin-bottom: 2mm; break-inside: avoid; }
+article, .item { margin-bottom: 2mm; break-inside: avoid; page-break-inside: avoid; }
 h3 {
 	display: flex;
 	flex-wrap: wrap;
@@ -92,6 +108,8 @@ h3 {
 	font-weight: 600;
 	color: var(--ink);
 	line-height: 1.35;
+	break-after: avoid;
+	page-break-after: avoid;
 }
 h3 .org { font-weight: 400; color: var(--soft); }
 h3 a { font-weight: 400; font-size: .87em; color: var(--sage); }
@@ -109,7 +127,10 @@ li::before { content: '·'; position: absolute; left: .7mm; color: var(--sage); 
 
 @media print {
 	html { background: var(--paper); }
-	body { width: 210mm; height: 297mm; margin: 0; overflow: hidden; }
+	body { width: 210mm; margin: 0; min-height: 0; }
+	body.paged { background: transparent; }
+	.sheet { margin: 0; break-after: page; page-break-after: always; }
+	.sheet:last-child { break-after: auto; page-break-after: auto; }
 }
 </style>
 </head>
@@ -120,9 +141,8 @@ li::before { content: '·'; position: absolute; left: .7mm; color: var(--sage); 
 	<p class="contact">0803 651 3400 <span class="sep">·</span> Abuja, FCT, NG</p>
 </header>
 <p class="summary">Educational leader and advocate for early years development with over two decades across West Africa. Founded schools, designed early years resources and trained educators in Montessori pedagogy.</p>
-<main>
-	<div>
-		<section><h2>experience</h2><article>
+<main class="one">
+	<section data-i="0" data-k="experience"><h2>experience</h2><article>
 	<h3>Board Member <span class="org">FCT Chess Federation</span></h3><ul><li>Advise on youth integration programmes across the Federal Capital Territory using chess as an educational tool</li></ul></article><article>
 	<h3>Chairperson, Finance Committee <span class="org">FCT Sports Council Chess Association</span></h3><ul><li>Provide leadership for the finance team — planning, managing, monitoring and safeguarding all financial resources</li><li>Developed handbook ensuring financial stability, accountability, transparency and growth of the Association</li></ul></article><article>
 	<h3>Founder / Director <span class="org">Beee Project — Be Everything Excellent Every Day</span></h3><ul><li>Lead youth development programmes leveraging chess to build strategic thinking, cognitive abilities and leadership</li></ul></article><article>
@@ -132,41 +152,157 @@ li::before { content: '·'; position: absolute; left: .7mm; color: var(--sage); 
 	<h3>Exclusive Contractor <span class="org">Chevron Nigeria Limited</span><span class="when">1993 – 2002</span></h3><ul><li>Produced, installed and maintained Venetian and vertical blinds across Chevron's Lekki estate and Ikoyi guesthouse</li></ul></article><article>
 	<h3>Producer / Contractor <span class="org">Corporate Uniforms &amp; Built Environment</span><span class="when">1992 – 1993</span></h3><ul><li>Produced corporate uniforms for Total Oil, Chevron Nigeria Limited and Mobil Oil</li><li>Constructed a swimming pool, gazebo and companion furniture for Chevron and Mobil</li></ul></article><article>
 	<h3>English Literature Teacher <span class="org">Government Secondary School, Surulere</span><span class="when">1990 – 1991</span></h3><ul><li>Taught English Literature at a government secondary school</li></ul></article></section>
-		<section><h2>selected work</h2><article>
+	<section data-i="1" data-k="selected work"><h2>selected work</h2><article>
 	<h3>Lesson Planning Template &amp; Guide</h3><p>Comprehensive planning frameworks tailored for Early Years, Primary and Secondary education.</p></article><article>
 	<h3>Early Literacy &amp; Handwriting Resources</h3><p>Specialized handwriting materials to accelerate fine motor skills and literacy in Early Years, Primary and Secondary students.</p></article><article>
 	<h3>Early Years Care Routine Journal</h3><p>Structured tracking journal to optimise daily care routines for early years practitioners.</p></article><article>
 	<h3>Educator Pedagogy Training</h3><p>Modules and teacher training in Montessori methods and early childhood pedagogy.</p></article></section>
-		
-		
-		<section><h2>skills</h2><p class="line"><span class="lead">Early Childhood</span> <span class="rest">Early Childhood Education &amp; Literacy <span class="sep">·</span> Montessori Pedagogy &amp; Teacher Training</span></p><p class="line"><span class="lead">Curriculum &amp; Leadership</span> <span class="rest">Curriculum Design &amp; Resource Publishing <span class="sep">·</span> School Administration &amp; Leadership</span></p><p class="line"><span class="lead">Innovation</span> <span class="rest">AI in Education &amp; Modern Methodologies <span class="sep">·</span> Cognitive Youth Leadership Coaching</span></p></section>
-		<section><h2>education</h2><p class="line"><span class="lead">PGDE Education</span> <span class="rest">National Teachers Institute <span class="sep">·</span> In View</span></p><p class="line"><span class="lead">B.Sc. Theatre Arts</span> <span class="rest">University of Benin, Edo State</span></p></section>
-		<section><h2>certificates</h2><p class="line"><span class="lead">Education Methodologies &amp; Pedagogy</span> <span class="rest">Continuous Professional Development</span></p><p class="line"><span class="lead">Phonics &amp; Early Literacy</span> <span class="rest">Continuous Professional Development</span></p><p class="line"><span class="lead">Mental Mathematics Development for Basic Schools</span> <span class="rest">Continuous Professional Development</span></p><p class="line"><span class="lead">Artificial Intelligence in Education</span> <span class="rest">Continuous Professional Development</span></p><p class="line"><span class="lead">School Administration</span> <span class="rest">Continuous Professional Development</span></p><p class="line"><span class="lead">Grade 1 Examination in Singing (Soprano)</span> <span class="rest">Musical Society of Nigeria (MUSON) School of Music <span class="sep">·</span> May 1998</span></p><p class="line"><span class="lead">Child Protection Training &amp; Membership</span> <span class="rest">Child Rights Brigade <span class="sep">·</span> Mar 2011</span></p><p class="line"><span class="lead">TETC 3.0 — K-12 Track (TETC-1964)</span> <span class="rest">Tech Enabled Teachers Conference <span class="sep">·</span> Aug 2026</span></p></section>
-	</div>
-	<div>
-		
-		
-		
-		
-		
-	</div>
+	
+	
+	<section data-i="4" data-k="skills"><h2>skills</h2><div class="item"><p class="line"><span class="lead">Early Childhood</span> <span class="rest">Early Childhood Education &amp; Literacy <span class="sep">·</span> Montessori Pedagogy &amp; Teacher Training</span></p></div><div class="item"><p class="line"><span class="lead">Curriculum &amp; Leadership</span> <span class="rest">Curriculum Design &amp; Resource Publishing <span class="sep">·</span> School Administration &amp; Leadership</span></p></div><div class="item"><p class="line"><span class="lead">Innovation</span> <span class="rest">AI in Education &amp; Modern Methodologies <span class="sep">·</span> Cognitive Youth Leadership Coaching</span></p></div></section>
+	<section data-i="5" data-k="education"><h2>education</h2><div class="item"><p class="line"><span class="lead">PGDE Education</span> <span class="rest">National Teachers Institute <span class="sep">·</span> In View</span></p></div><div class="item"><p class="line"><span class="lead">B.Sc. Theatre Arts</span> <span class="rest">University of Benin, Edo State</span></p></div></section>
+	<section data-i="6" data-k="certificates"><h2>certificates</h2><div class="item"><p class="line"><span class="lead">Education Methodologies &amp; Pedagogy</span> <span class="rest">Continuous Professional Development</span></p></div><div class="item"><p class="line"><span class="lead">Phonics &amp; Early Literacy</span> <span class="rest">Continuous Professional Development</span></p></div><div class="item"><p class="line"><span class="lead">Mental Mathematics Development for Basic Schools</span> <span class="rest">Continuous Professional Development</span></p></div><div class="item"><p class="line"><span class="lead">Artificial Intelligence in Education</span> <span class="rest">Continuous Professional Development</span></p></div><div class="item"><p class="line"><span class="lead">School Administration</span> <span class="rest">Continuous Professional Development</span></p></div><div class="item"><p class="line"><span class="lead">Grade 1 Examination in Singing (Soprano)</span> <span class="rest">Musical Society of Nigeria (MUSON) School of Music <span class="sep">·</span> May 1998</span></p></div><div class="item"><p class="line"><span class="lead">Child Protection Training &amp; Membership</span> <span class="rest">Child Rights Brigade <span class="sep">·</span> Mar 2011</span></p></div><div class="item"><p class="line"><span class="lead">TETC 3.0 — K-12 Track (TETC-1964)</span> <span class="rest">Tech Enabled Teachers Conference <span class="sep">·</span> Aug 2026</span></p></div></section>
+	
+	
+	
+	
 </main>
 <script>
 (function () {
 	var body = document.body;
-	var fits = function () {
-		return body.scrollHeight <= body.clientHeight + 1;
+	var main = document.querySelector('main');
+	var two = true;
+	var leftKeys = {
+		experience: 1,
+		publications: 1,
+		awards: 1,
+		skills: 1,
+		education: 1,
+		certificates: 1
 	};
-	var one = document.querySelector('main.one');
-	var lo = 6.4;
-	var hi = one ? 11.0 : 11.2;
-	var best = lo;
-	for (var size = lo; size <= hi; size += 0.1) {
-		body.style.fontSize = size.toFixed(1) + 'pt';
-		if (!fits()) break;
-		best = size;
+
+	var findSec = function (root, title) {
+		var list = root.querySelectorAll('section');
+		for (var i = 0; i < list.length; i++) {
+			if (list[i].getAttribute('data-k') === title) return list[i];
+		}
+		return null;
+	};
+
+	var ensureSec = function (col, title) {
+		var sec = findSec(col, title);
+		if (sec) return sec;
+		sec = document.createElement('section');
+		sec.setAttribute('data-k', title);
+		var h2 = document.createElement('h2');
+		h2.appendChild(document.createTextNode(title));
+		sec.appendChild(h2);
+		col.appendChild(sec);
+		return sec;
+	};
+
+	var limitOf = function (page) {
+		var pad = parseFloat(getComputedStyle(page).paddingBottom) || 0;
+		var room = 8 * (96 / 25.4);
+		return page.getBoundingClientRect().bottom - pad - room;
+	};
+
+	var overflows = function (page, el) {
+		return el.getBoundingClientRect().bottom > limitOf(page) + 1;
+	};
+
+	var header = document.querySelector('header');
+	var summary = document.querySelector('.summary');
+	var left = [];
+	var right = [];
+	[].slice.call(main.querySelectorAll('section')).forEach(function (sec) {
+		var title = sec.getAttribute('data-k');
+		var kids = [].slice.call(sec.children).filter(function (n) {
+			return n.tagName !== 'H2';
+		});
+		kids.forEach(function (el, idx) {
+			(two && leftKeys[title] ? left : right).push({ title: title, el: el, idx: idx });
+		});
+	});
+
+	body.className = 'paged';
+	body.innerHTML = '';
+
+	var page;
+	var destL;
+	var destR;
+
+	var addPage = function () {
+		page = document.createElement('div');
+		page.className = 'sheet';
+		var dest = document.createElement('main');
+		if (header) {
+			page.appendChild(header);
+			header = null;
+			if (summary) {
+				page.appendChild(summary);
+				summary = null;
+			}
+		}
+		if (two) {
+			destL = document.createElement('div');
+			destR = document.createElement('div');
+			dest.appendChild(destL);
+			dest.appendChild(destR);
+		} else {
+			dest.className = 'one';
+			destL = destR = dest;
+		}
+		page.appendChild(dest);
+		body.appendChild(page);
+	};
+
+	var put = function (a, col) {
+		var fresh = !findSec(col, a.title);
+		var empty = !col.firstChild;
+		var sec = ensureSec(col, a.title);
+		sec.appendChild(a.el);
+		if (!overflows(page, a.el)) return true;
+		sec.removeChild(a.el);
+		if (fresh) col.removeChild(sec);
+		else if (sec.children.length === 1) col.removeChild(sec);
+		if (!empty) return false;
+		sec = ensureSec(col, a.title);
+		sec.appendChild(a.el);
+		return true;
+	};
+
+	var fill = function (list, col) {
+		while (list.length && put(list[0], col)) list.shift();
+	};
+
+	var balance = function () {
+		if (!two || (destL.firstChild && destR.firstChild)) return;
+		var full = destL.firstChild ? destL : destR;
+		var empty = destL.firstChild ? destR : destL;
+		var secs = [].slice.call(full.children);
+		if (secs.length < 2) return;
+		secs.slice(Math.ceil(secs.length / 2)).forEach(function (s) {
+			empty.appendChild(s);
+		});
+	};
+
+	addPage();
+	for (;;) {
+		if (two && !left.length) {
+			fill(right, destL);
+			fill(right, destR);
+		} else if (two && !right.length) {
+			fill(left, destL);
+			fill(left, destR);
+		} else {
+			fill(left, destL);
+			fill(right, destR);
+		}
+		balance();
+		if (!left.length && !right.length) break;
+		addPage();
 	}
-	body.style.fontSize = best.toFixed(1) + 'pt';
 })();
 </script>
 </body>

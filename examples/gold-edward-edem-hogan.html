@@ -21,8 +21,7 @@
 html { background: #eceae4; }
 body {
 	width: 210mm;
-	height: 297mm;
-	overflow: hidden;
+	min-height: 297mm;
 	margin: 0 auto;
 	padding: 11mm 14mm 8mm;
 	background: var(--paper);
@@ -32,10 +31,23 @@ body {
 	line-height: 1.5;
 	-webkit-font-smoothing: antialiased;
 }
+body.paged {
+	min-height: 0;
+	padding: 0;
+	background: transparent;
+}
+.sheet {
+	width: 210mm;
+	height: 297mm;
+	overflow: hidden;
+	margin: 0 0 8mm;
+	padding: 11mm 14mm 8mm;
+	background: var(--paper);
+}
 a { color: var(--sage-deep); text-decoration: none; }
 .sep { color: var(--faint); padding: 0 .12em; }
 
-header { text-align: center; padding-bottom: 4mm; }
+header { text-align: center; padding-bottom: 4mm; break-inside: avoid; }
 h1 {
 	font-family: var(--serif);
 	font-size: 2.45em;
@@ -56,6 +68,7 @@ h1 {
 	text-align: center;
 	font-size: .98em;
 	line-height: 1.62;
+	break-inside: avoid;
 }
 
 main {
@@ -63,11 +76,12 @@ main {
 	grid-template-columns: 1.34fr 1fr;
 	column-gap: 9mm;
 	padding-top: 4mm;
+	align-items: start;
 }
 main.one { display: block; }
 main.one section { margin-bottom: 7mm; }
 main.one article { margin-bottom: 3.6mm; }
-main.one .line { margin-bottom: 2.6mm; }
+main.one .item { margin-bottom: 2.6mm; }
 
 section { margin-bottom: 4mm; }
 section:last-child { margin-bottom: 0; }
@@ -80,9 +94,11 @@ h2 {
 	padding-bottom: 1.1mm;
 	margin-bottom: 2.4mm;
 	border-bottom: .3pt solid var(--line);
+	break-after: avoid;
+	page-break-after: avoid;
 }
 
-article { margin-bottom: 2mm; break-inside: avoid; }
+article, .item { margin-bottom: 2mm; break-inside: avoid; page-break-inside: avoid; }
 h3 {
 	display: flex;
 	flex-wrap: wrap;
@@ -92,6 +108,8 @@ h3 {
 	font-weight: 600;
 	color: var(--ink);
 	line-height: 1.35;
+	break-after: avoid;
+	page-break-after: avoid;
 }
 h3 .org { font-weight: 400; color: var(--soft); }
 h3 a { font-weight: 400; font-size: .87em; color: var(--sage); }
@@ -109,7 +127,10 @@ li::before { content: '·'; position: absolute; left: .7mm; color: var(--sage); 
 
 @media print {
 	html { background: var(--paper); }
-	body { width: 210mm; height: 297mm; margin: 0; overflow: hidden; }
+	body { width: 210mm; margin: 0; min-height: 0; }
+	body.paged { background: transparent; }
+	.sheet { margin: 0; break-after: page; page-break-after: always; }
+	.sheet:last-child { break-after: auto; page-break-after: auto; }
 }
 </style>
 </head>
@@ -120,54 +141,169 @@ li::before { content: '·'; position: absolute; left: .7mm; color: var(--sage); 
 	<p class="contact"><a href="mailto:1440fl@gmail.com">1440fl@gmail.com</a> <span class="sep">·</span> +2349017743168 <span class="sep">·</span> <a href="https://github.com/144126">github.com/144126</a></p>
 </header>
 <p class="summary">AI Integration Engineer at PilotSpan LLC. Full-stack developer in SvelteKit, TypeScript, Python, and Rust. Builds AI-driven applications, scalable web platforms, and algorithmic trading systems. Deploys end to end on AWS, Cloudflare, Docker, and CI/CD.</p>
-<main>
-	<div>
-		<section><h2>experience</h2><article>
+<main class="one">
+	<section data-i="0" data-k="experience"><h2>experience</h2><article>
 	<h3>AI Integration Engineer <span class="org">PilotSpan LLC</span><span class="when">Aug 2026 – present</span></h3><p class="note">AI integration engineering.</p></article></section>
-		<section><h2>selected work</h2><article>
-	<h3>Image Scale <a href="https://4320.vercel.app/images/scale">4320.vercel.app/images/scale</a></h3><p>SvelteKit web tool for image rescaling.</p></article><article>
-	<h3>Report Card Management Webapp</h3><p>School management system backed by Qdrant and SvelteKit.</p></article><article>
+	<section data-i="1" data-k="selected work"><h2>selected work</h2><article>
+	<h3>calm — JSON Resume theme <a href="https://calm.apexlinks.org">calm.apexlinks.org</a></h3><p>Published npm theme (jsonresume-theme-calm) that keeps jobs and headings whole across page breaks instead of splitting them. Its site renders any GitHub user's resume.json gist client-side, so no server ever holds a resume.</p></article><article>
+	<h3>DevCircles Industry Insight Report <a href="https://devcircles.apexlinks.org">devcircles.apexlinks.org</a></h3><p>Investor-facing directory of 43 products built by the DevCircles community. SvelteKit on Cloudflare Workers with Qdrant as the only datastore; deal cards ordered silently by traction, dated figures with freshness decay, grouping by traction/sector/country/state, raising filters and a /raising page, investor interest capture routed to an owner inbox, and JSON-LD for search. Builders sign in with Google to edit their own listing.</p></article><article>
+	<h3>x2 <a href="https://x2.apexlinks.workers.dev">x2.apexlinks.workers.dev</a></h3><p>SvelteKit social app where you search rooms built around shared interests, join in a click, or match one-to-one — no feed, no profile to perform for. Runs on Cloudflare Workers with a Qdrant vector store, WebSocket realtime, push notifications, groups, emoji/stickers and R2 image upload, plus an AI thread powered by the Vercel AI SDK with streaming reasoning. Google OAuth and Paystack integrated.</p></article><article>
+	<h3>Chess AI Training App <a href="https://chess.apexlinks.org">chess.apexlinks.org</a></h3><p>Chess training platform where users play Stockfish across 10 difficulty levels. The Groq AI coach has full awareness of the board state and move history — it explains why each hint is suggested and answers any question like why the opponent made a particular move. Features Google OAuth, Paystack payments, Cloudflare Workers.</p></article><article>
+	<h3>MT5 Neural Network EAs <a href="https://github.com/angelwingscomms/mt5-nn-ea">github.com/angelwingscomms/mt5-nn-ea</a></h3><p>Algorithmic trading system for MetaTrader 5 (Gold &amp; Bitcoin). Features Python scripts for tick data processing and training Mamba state-space neural networks. Exports trained AI models to ONNX format for live execution in MQL5.</p></article><article>
+	<h3>Crypto Arbitrage Bot <a href="https://github.com/angelwingscomms/crypto-arbitrage">github.com/angelwingscomms/crypto-arbitrage</a></h3><p>Automated cryptocurrency arbitrage trading system built in TypeScript. Leverages the ccxt library to monitor and execute cross-exchange arbitrage opportunities.</p></article><article>
+	<h3>ApexLinks <a href="https://apexlinks.org">apexlinks.org</a></h3><p>SvelteKit platform to list businesses, products, and services. Features AI-powered vector search for blogs/listings and an integrated AI resume builder that autonomously generates complete content and styling.</p></article><article>
+	<h3>AI Image Creation Assistant</h3><p>Prompt engineering tool that helps users craft robust AI image prompts. Features a click-and-drop library for style and scenario keywords, and integrates directly with DALL-E / image generation APIs to render outputs.</p></article><article>
+	<h3>Image Scale <a href="https://4320.vercel.app/images/scale">4320.vercel.app/images/scale</a></h3><p>SvelteKit web tool for image rescaling. Core resizing logic is implemented in Rust and compiled to WASM for high performance, featuring user toggles to preserve the original aspect ratio.</p></article><article>
+	<h3>Report Card Management Webapp</h3><p>School management system backed by Qdrant and SvelteKit. Enables teachers to log student scores, auto-computes final pass/fail grades, and generates comprehensive PDF report cards at the end of the term.</p></article><article>
 	<h3>Travel Ticketing WebApp Frontend</h3><p>React-based flight booking UI allowing users to input travel dates and select their preferred plane and seats (TIIDELab team project).</p></article><article>
 	<h3>CBT Web App</h3><p>Full-stack SvelteKit application for educators to create, save, and administer quizzes and tests, supporting objective, short-answer, and essay question formats.</p></article><article>
-	<h3>c6 — Site Ledger <a href="https://github.com/angelwingscomms/c6">github.com/angelwingscomms/c6</a></h3><p>Material &amp; progress control app for small residential builders.</p></article></section>
-		
-		
-		<section><h2>skills</h2><p class="line"><span class="lead">SvelteKit</span> <span class="rest">expert <span class="sep">·</span> 6 years</span></p><p class="line"><span class="lead">Python</span> <span class="rest">intermediate <span class="sep">·</span> 9 years</span></p><p class="line"><span class="lead">TypeScript</span> <span class="rest">intermediate <span class="sep">·</span> 6 years</span></p><p class="line"><span class="lead">Rust</span> <span class="rest">intermediate <span class="sep">·</span> 4 years</span></p><p class="line"><span class="lead">Frontend</span> <span class="rest">SvelteJS <span class="sep">·</span> React <span class="sep">·</span> HTML/JSX <span class="sep">·</span> Tailwind CSS <span class="sep">·</span> Carbon Components <span class="sep">·</span> Material UI</span></p><p class="line"><span class="lead">Backend</span> <span class="rest">Node.js <span class="sep">·</span> PostgreSQL <span class="sep">·</span> MongoDB <span class="sep">·</span> Redis <span class="sep">·</span> Supabase <span class="sep">·</span> REST APIs <span class="sep">·</span> WebSockets <span class="sep">·</span> Deno</span></p><p class="line"><span class="lead">Cloud &amp; DevOps</span> <span class="rest">AWS (Lightsail, EC2) <span class="sep">·</span> Linux <span class="sep">·</span> Docker <span class="sep">·</span> GitHub Actions <span class="sep">·</span> CI/CD Pipelines <span class="sep">·</span> Serverless <span class="sep">·</span> Cloudflare <span class="sep">·</span> Cloudflare R2 <span class="sep">·</span> Cloudflare Workers Builds <span class="sep">·</span> Vercel <span class="sep">·</span> Netlify <span class="sep">·</span> Heroku</span></p><p class="line"><span class="lead">Architecture &amp; Tooling</span> <span class="rest">API Design <span class="sep">·</span> Microservices <span class="sep">·</span> CLI Tools <span class="sep">·</span> NPM Package Publishing</span></p><p class="line"><span class="lead">Algorithmic Trading &amp; AI</span> <span class="rest">MQL5 <span class="sep">·</span> ONNX <span class="sep">·</span> ccxt <span class="sep">·</span> Qdrant (Vector Embeddings) <span class="sep">·</span> OpenRouter (LLM &amp; Embeddings) <span class="sep">·</span> Google OAuth <span class="sep">·</span> Machine Learning Pipelines</span></p><p class="line"><span class="lead">Design &amp; Media</span> <span class="rest">Figma <span class="sep">·</span> Inkscape <span class="sep">·</span> CorelDRAW <span class="sep">·</span> FL Studio <span class="sep">·</span> Video Editing</span></p></section>
-		<section><h2>education</h2><p class="line"><span class="lead">BSc Information Technology</span> <span class="rest">Knutsford University College <span class="sep">·</span> 2023</span></p></section>
-		<section><h2>certificates</h2><p class="line"><span class="lead">6-month Front End Web Development Training</span> <span class="rest">TIIDELab <span class="sep">·</span> 2023</span></p></section>
-	</div>
-	<div>
-		<section><h2>selected work</h2><article>
-	<h3>calm — JSON Resume theme <a href="https://calm.apexlinks.org">calm.apexlinks.org</a></h3><p>Published npm theme (jsonresume-theme-calm) that fits any resume onto a single A4 page, sizing its own type between 6.8pt and 10.4pt to match how much you wrote.</p></article><article>
-	<h3>DevCircles Industry Insight Report <a href="https://devcircles.apexlinks.org">devcircles.apexlinks.org</a></h3><p>Investor-facing directory of 43 products built by the DevCircles community.</p></article><article>
-	<h3>x2 <a href="https://x2.apexlinks.workers.dev">x2.apexlinks.workers.dev</a></h3><p>SvelteKit social app where you search rooms built around shared interests, join in a click, or match one-to-one — no feed, no profile to perform for.</p></article><article>
-	<h3>Chess AI Training App <a href="https://chess.apexlinks.org">chess.apexlinks.org</a></h3><p>Chess training platform where users play Stockfish across 10 difficulty levels.</p></article><article>
-	<h3>MT5 Neural Network EAs <a href="https://github.com/angelwingscomms/mt5-nn-ea">github.com/angelwingscomms/mt5-nn-ea</a></h3><p>Algorithmic trading system for MetaTrader 5 (Gold &amp; Bitcoin).</p></article><article>
-	<h3>Crypto Arbitrage Bot <a href="https://github.com/angelwingscomms/crypto-arbitrage">github.com/angelwingscomms/crypto-arbitrage</a></h3><p>Automated cryptocurrency arbitrage trading system built in TypeScript.</p></article><article>
-	<h3>ApexLinks <a href="https://apexlinks.org">apexlinks.org</a></h3><p>SvelteKit platform to list businesses, products, and services.</p></article><article>
-	<h3>AI Image Creation Assistant</h3><p>Prompt engineering tool that helps users craft robust AI image prompts.</p></article></section>
-		<section><h2>volunteering</h2><p class="line"><span class="lead">Volunteer Teacher</span> <span class="rest">PlanB Summer Camp <span class="sep">·</span> 2024</span></p><p class="note">Taught basic web development in a bootcamp.</p></section>
-		
-		<section><h2>interests</h2><p class="line"><span class="lead">Audio Engineering</span> <span class="rest">Music Production <span class="sep">·</span> Beat Production</span></p><p class="line"><span class="lead">Psychology</span> <span class="rest">Cognitive Psychology <span class="sep">·</span> Behavioral Patterns</span></p></section>
-		
-	</div>
+	<h3>c6 — Site Ledger <a href="https://github.com/angelwingscomms/c6">github.com/angelwingscomms/c6</a></h3><p>Material &amp; progress control app for small residential builders. Track every material order → delivery → usage, enforce engineer benchmarks, and surface discrepancies (negative stock, over-delivery, waste) in real time, plus drawings, milestones, and a grounded AI site assistant. Built as a single SvelteKit app on Cloudflare Workers: Qdrant as the only datastore with semantic search, Cloudflare R2 for drawings/photos, OpenRouter embeddings + chat, Google OAuth sign-in with HMAC-signed sessions, secrets via Cloudflare Secrets Store and deployed through Workers Builds CI.</p></article></section>
+	
+	
+	<section data-i="4" data-k="skills"><h2>skills</h2><div class="item"><p class="line"><span class="lead">SvelteKit</span> <span class="rest">expert <span class="sep">·</span> 6 years</span></p></div><div class="item"><p class="line"><span class="lead">Python</span> <span class="rest">intermediate <span class="sep">·</span> 9 years</span></p></div><div class="item"><p class="line"><span class="lead">TypeScript</span> <span class="rest">intermediate <span class="sep">·</span> 6 years</span></p></div><div class="item"><p class="line"><span class="lead">Rust</span> <span class="rest">intermediate <span class="sep">·</span> 4 years</span></p></div><div class="item"><p class="line"><span class="lead">Frontend</span> <span class="rest">SvelteJS <span class="sep">·</span> React <span class="sep">·</span> HTML/JSX <span class="sep">·</span> Tailwind CSS <span class="sep">·</span> Carbon Components <span class="sep">·</span> Material UI</span></p></div><div class="item"><p class="line"><span class="lead">Backend</span> <span class="rest">Node.js <span class="sep">·</span> PostgreSQL <span class="sep">·</span> MongoDB <span class="sep">·</span> Redis <span class="sep">·</span> Supabase <span class="sep">·</span> REST APIs <span class="sep">·</span> WebSockets <span class="sep">·</span> Deno</span></p></div><div class="item"><p class="line"><span class="lead">Cloud &amp; DevOps</span> <span class="rest">AWS (Lightsail, EC2) <span class="sep">·</span> Linux <span class="sep">·</span> Docker <span class="sep">·</span> GitHub Actions <span class="sep">·</span> CI/CD Pipelines <span class="sep">·</span> Serverless <span class="sep">·</span> Cloudflare <span class="sep">·</span> Cloudflare R2 <span class="sep">·</span> Cloudflare Workers Builds <span class="sep">·</span> Vercel <span class="sep">·</span> Netlify <span class="sep">·</span> Heroku</span></p></div><div class="item"><p class="line"><span class="lead">Architecture &amp; Tooling</span> <span class="rest">API Design <span class="sep">·</span> Microservices <span class="sep">·</span> CLI Tools <span class="sep">·</span> NPM Package Publishing</span></p></div><div class="item"><p class="line"><span class="lead">Algorithmic Trading &amp; AI</span> <span class="rest">MQL5 <span class="sep">·</span> ONNX <span class="sep">·</span> ccxt <span class="sep">·</span> Qdrant (Vector Embeddings) <span class="sep">·</span> OpenRouter (LLM &amp; Embeddings) <span class="sep">·</span> Google OAuth <span class="sep">·</span> Machine Learning Pipelines</span></p></div><div class="item"><p class="line"><span class="lead">Design &amp; Media</span> <span class="rest">Figma <span class="sep">·</span> Inkscape <span class="sep">·</span> CorelDRAW <span class="sep">·</span> FL Studio <span class="sep">·</span> Video Editing</span></p></div></section>
+	<section data-i="5" data-k="education"><h2>education</h2><div class="item"><p class="line"><span class="lead">BSc Information Technology</span> <span class="rest">Knutsford University College <span class="sep">·</span> 2023</span></p></div></section>
+	<section data-i="6" data-k="certificates"><h2>certificates</h2><div class="item"><p class="line"><span class="lead">6-month Front End Web Development Training</span> <span class="rest">TIIDELab <span class="sep">·</span> 2023</span></p></div></section>
+	<section data-i="7" data-k="volunteering"><h2>volunteering</h2><div class="item"><p class="line"><span class="lead">Volunteer Teacher</span> <span class="rest">PlanB Summer Camp <span class="sep">·</span> 2024</span></p><p class="note">Taught basic web development in a bootcamp.</p></div></section>
+	
+	<section data-i="9" data-k="interests"><h2>interests</h2><div class="item"><p class="line"><span class="lead">Audio Engineering</span> <span class="rest">Music Production <span class="sep">·</span> Beat Production</span></p></div><div class="item"><p class="line"><span class="lead">Psychology</span> <span class="rest">Cognitive Psychology <span class="sep">·</span> Behavioral Patterns</span></p></div></section>
+	
 </main>
 <script>
 (function () {
 	var body = document.body;
-	var fits = function () {
-		return body.scrollHeight <= body.clientHeight + 1;
+	var main = document.querySelector('main');
+	var two = true;
+	var leftKeys = {
+		experience: 1,
+		publications: 1,
+		awards: 1,
+		skills: 1,
+		education: 1,
+		certificates: 1
 	};
-	var one = document.querySelector('main.one');
-	var lo = 6.4;
-	var hi = one ? 11.0 : 11.2;
-	var best = lo;
-	for (var size = lo; size <= hi; size += 0.1) {
-		body.style.fontSize = size.toFixed(1) + 'pt';
-		if (!fits()) break;
-		best = size;
+
+	var findSec = function (root, title) {
+		var list = root.querySelectorAll('section');
+		for (var i = 0; i < list.length; i++) {
+			if (list[i].getAttribute('data-k') === title) return list[i];
+		}
+		return null;
+	};
+
+	var ensureSec = function (col, title) {
+		var sec = findSec(col, title);
+		if (sec) return sec;
+		sec = document.createElement('section');
+		sec.setAttribute('data-k', title);
+		var h2 = document.createElement('h2');
+		h2.appendChild(document.createTextNode(title));
+		sec.appendChild(h2);
+		col.appendChild(sec);
+		return sec;
+	};
+
+	var limitOf = function (page) {
+		var pad = parseFloat(getComputedStyle(page).paddingBottom) || 0;
+		var room = 8 * (96 / 25.4);
+		return page.getBoundingClientRect().bottom - pad - room;
+	};
+
+	var overflows = function (page, el) {
+		return el.getBoundingClientRect().bottom > limitOf(page) + 1;
+	};
+
+	var header = document.querySelector('header');
+	var summary = document.querySelector('.summary');
+	var left = [];
+	var right = [];
+	[].slice.call(main.querySelectorAll('section')).forEach(function (sec) {
+		var title = sec.getAttribute('data-k');
+		var kids = [].slice.call(sec.children).filter(function (n) {
+			return n.tagName !== 'H2';
+		});
+		kids.forEach(function (el, idx) {
+			(two && leftKeys[title] ? left : right).push({ title: title, el: el, idx: idx });
+		});
+	});
+
+	body.className = 'paged';
+	body.innerHTML = '';
+
+	var page;
+	var destL;
+	var destR;
+
+	var addPage = function () {
+		page = document.createElement('div');
+		page.className = 'sheet';
+		var dest = document.createElement('main');
+		if (header) {
+			page.appendChild(header);
+			header = null;
+			if (summary) {
+				page.appendChild(summary);
+				summary = null;
+			}
+		}
+		if (two) {
+			destL = document.createElement('div');
+			destR = document.createElement('div');
+			dest.appendChild(destL);
+			dest.appendChild(destR);
+		} else {
+			dest.className = 'one';
+			destL = destR = dest;
+		}
+		page.appendChild(dest);
+		body.appendChild(page);
+	};
+
+	var put = function (a, col) {
+		var fresh = !findSec(col, a.title);
+		var empty = !col.firstChild;
+		var sec = ensureSec(col, a.title);
+		sec.appendChild(a.el);
+		if (!overflows(page, a.el)) return true;
+		sec.removeChild(a.el);
+		if (fresh) col.removeChild(sec);
+		else if (sec.children.length === 1) col.removeChild(sec);
+		if (!empty) return false;
+		sec = ensureSec(col, a.title);
+		sec.appendChild(a.el);
+		return true;
+	};
+
+	var fill = function (list, col) {
+		while (list.length && put(list[0], col)) list.shift();
+	};
+
+	var balance = function () {
+		if (!two || (destL.firstChild && destR.firstChild)) return;
+		var full = destL.firstChild ? destL : destR;
+		var empty = destL.firstChild ? destR : destL;
+		var secs = [].slice.call(full.children);
+		if (secs.length < 2) return;
+		secs.slice(Math.ceil(secs.length / 2)).forEach(function (s) {
+			empty.appendChild(s);
+		});
+	};
+
+	addPage();
+	for (;;) {
+		if (two && !left.length) {
+			fill(right, destL);
+			fill(right, destR);
+		} else if (two && !right.length) {
+			fill(left, destL);
+			fill(left, destR);
+		} else {
+			fill(left, destL);
+			fill(right, destR);
+		}
+		balance();
+		if (!left.length && !right.length) break;
+		addPage();
 	}
-	body.style.fontSize = best.toFixed(1) + 'pt';
 })();
 </script>
 </body>

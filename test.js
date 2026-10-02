@@ -35,9 +35,12 @@ assert.match(html, /github\.com\/ada/, 'links profiles by host');
 assert.match(html, /<h2>experience<\/h2>/, 'renders sections present in the resume');
 assert.doesNotMatch(html, /<h2>awards<\/h2>/, 'omits sections absent from the resume');
 assert.match(html, /@page \{ size: A4/, 'declares A4 page geometry');
-
-
-assert.doesNotMatch(html, /class="one"/, 'default layout stays two columns');
-assert.match(render({ basics: { name: 'Ada' }, meta: { layout: 'one' } }), /class="one"/, 'meta.layout one is a single column');
+assert.match(html, /page-break-inside: avoid/, 'keeps jobs and items whole across pages');
+assert.match(html, /var two = true/, 'default paginates in two columns');
+assert.match(
+	render({ basics: { name: 'Ada' }, meta: { layout: 'one' } }),
+	/var two = false/,
+	'meta.layout one paginates in one column'
+);
 
 console.log('ok');

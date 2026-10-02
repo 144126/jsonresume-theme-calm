@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>calm — a one-page resume theme</title>
-<meta name="description" content="Render any JSON Resume as a calm, single-page A4 resume. Type a GitHub username.">
-<meta property="og:title" content="calm — a one-page resume theme">
-<meta property="og:description" content="Render any JSON Resume as a calm, single-page A4 resume. Type a GitHub username.">
+<title>calm — a page-break aware resume theme</title>
+<meta name="description" content="Render any JSON Resume as a calm A4 resume that keeps sections whole across pages. Type a GitHub username.">
+<meta property="og:title" content="calm — a page-break aware resume theme">
+<meta property="og:description" content="Render any JSON Resume as a calm A4 resume that keeps sections whole across pages. Type a GitHub username.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23fdfcf9'/><path d='M9 11h14M9 16h14M9 21h9' stroke='%237b9a8e' stroke-width='2' stroke-linecap='round'/></svg>">
 <script>document.documentElement.dataset.route = /^\/[a-z\d-]+$/i.test(location.pathname) ? 'view' : 'home';</script>
 <style>
@@ -80,10 +80,11 @@ button:disabled { opacity: .55; cursor: default; }
 	position: relative;
 	width: 100%;
 	max-width: 794px;
+	height: 1123px;
 	margin: 0 auto;
-	aspect-ratio: 210 / 297;
 	background: var(--paper);
 	box-shadow: 0 1px 3px rgba(56, 67, 75, .08), 0 12px 32px rgba(56, 67, 75, .1);
+	overflow: hidden;
 }
 .sheet iframe {
 	position: absolute;
@@ -200,7 +201,7 @@ body.owner #desk { display: grid; grid-template-columns: 1fr 22rem; }
 <main>
 	<header>
 		<h1>calm</h1>
-		<p class="tag">your résumé, quiet and on one page</p>
+		<p class="tag">your résumé, quiet, and whole at every page break</p>
 	</header>
 
 	<p class="who" id="who"></p>
@@ -232,8 +233,8 @@ body.owner #desk { display: grid; grid-template-columns: 1fr 22rem; }
 			nothing but the résumé, ready to send or print.
 		</p>
 		<p>
-			Everything lands on a single A4 page: the type sizes itself between 6.8pt and 10.4pt to fit whatever you
-			wrote, so a short résumé fills the sheet and a long one still stays on it.
+			It does not shrink type to force one page. If a job, project, or item cannot sit comfortably on the
+			page that is left, the whole piece starts on the next page.
 		</p>
 		<h2 style="margin-top:2rem">use the theme yourself</h2>
 		<pre><code>npm i -g resumed jsonresume-theme-calm
@@ -304,7 +305,13 @@ const status = (text, bad) => {
 };
 
 const scale_el = (fr, sh) => {
-	if (fr && sh) fr.style.transform = `scale(${sh.clientWidth / 794})`;
+	if (!fr || !sh) return;
+	const doc = fr.contentDocument;
+	const h = Math.max(doc?.documentElement?.scrollHeight || 0, doc?.body?.scrollHeight || 0, 1123);
+	fr.style.height = h + 'px';
+	const s = sh.clientWidth / 794;
+	fr.style.transform = `scale(${s})`;
+	sh.style.height = h * s + 'px';
 };
 const scale = () => {
 	scale_el(frame, sheet);
@@ -314,8 +321,8 @@ addEventListener('resize', scale);
 
 const paint = (resume, fr) => {
 	html = render(resume);
+	fr.onload = scale;
 	fr.srcdoc = html;
-	scale();
 	document.title = `${resume.basics?.name ?? name} — calm`;
 };
 

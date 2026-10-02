@@ -1,15 +1,6 @@
 const esc = (s) =>
 	String(s ?? '').replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c]);
 
-const clamp = (s, budget) => {
-	let out = '';
-	for (const sentence of String(s ?? '').split(/(?<=\.)\s+/)) {
-		if (out && (out + ' ' + sentence).length > budget) break;
-		out += (out ? ' ' : '') + sentence;
-	}
-	return out;
-};
-
 const host = (u) =>
 	String(u ?? '').replace(/^https?:\/\//, '').replace(/^www\./, '').replace(/\/$/, '');
 
@@ -28,17 +19,20 @@ const range = (from, to) => {
 	return !a || a === b ? b : !b ? a : `${a} – ${b}`;
 };
 
-const section = (title, body) => (body ? `<section><h2>${title}</h2>${body}</section>` : '');
+const section = (i, title, body) =>
+	body ? `<section data-i="${i}" data-k="${title}"><h2>${title}</h2>${body}</section>` : '';
 
 const link = (url) => (url ? ` <a href="${esc(url)}">${esc(host(url))}</a>` : '');
 
 const line = (name, rest) =>
 	`<p class="line"><span class="lead">${esc(name)}</span>${rest ? ` <span class="rest">${rest}</span>` : ''}</p>`;
 
-const note = (text, budget) => (text ? `<p class="note">${esc(clamp(text, budget))}</p>` : '');
+const note = (text) => (text ? `<p class="note">${esc(text)}</p>` : '');
 
 const bullets = (items) =>
 	items?.length ? `<ul>${items.map((i) => `<li>${esc(i)}</li>`).join('')}</ul>` : '';
+
+const item = (html) => (html ? `<div class="item">${html}</div>` : '');
 
 const entry = (title, org, dates, url, body) => `<article>
 	<h3>${esc(title)}${org ? ` <span class="org">${esc(org)}</span>` : ''}${link(url)}${
@@ -69,72 +63,76 @@ function render(resume) {
 				w.position ? w.name : '',
 				range(w.startDate, w.endDate),
 				w.url,
-				note(w.summary, 240) + bullets(w.highlights)
+				note(w.summary) + bullets(w.highlights)
 			)
 		)
 		.join('');
 
-	const project_items = (resume.projects ?? []).map((p) =>
-		entry(
-			p.name,
-			'',
-			range(p.startDate, p.endDate),
-			p.website || p.url,
-			`<p>${esc(clamp(p.description, 150))}</p>` + bullets(p.highlights)
+	const projects = (resume.projects ?? [])
+		.map((p) =>
+			entry(
+				p.name,
+				'',
+				range(p.startDate, p.endDate),
+				p.website || p.url,
+				(p.description ? `<p>${esc(p.description)}</p>` : '') + bullets(p.highlights)
+			)
 		)
-	);
-	const left_n = Math.min(5, project_items.length);
-	const projects_left = project_items.slice(-left_n).join('');
-	const projects_right = project_items.slice(0, project_items.length - left_n).join('');
-	const projects = project_items.join('');
+		.join('');
 
 	const publications = (resume.publications ?? [])
-		.map((p) => line(p.name, dot([esc(p.publisher), when(p.releaseDate)])) + note(p.summary, 150))
+		.map((p) => item(line(p.name, dot([esc(p.publisher), when(p.releaseDate)])) + note(p.summary)))
 		.join('');
 
 	const awards = (resume.awards ?? [])
-		.map((a) => line(a.title, dot([esc(a.awarder), when(a.date)])) + note(a.summary, 150))
+		.map((a) => item(line(a.title, dot([esc(a.awarder), when(a.date)])) + note(a.summary)))
 		.join('');
 
 	const skills = (resume.skills ?? [])
 		.map((s) =>
-			line(s.name, dot([s.level && esc(s.level.toLowerCase()), ...(s.keywords ?? []).map(esc)]))
+			item(line(s.name, dot([s.level && esc(s.level.toLowerCase()), ...(s.keywords ?? []).map(esc)])))
 		)
 		.join('');
 
 	const education = (resume.education ?? [])
 		.map((e) =>
-			line(
-				[e.studyType, e.area].filter(Boolean).join(' '),
-				dot([esc(e.institution), range(e.startDate, e.endDate), esc(e.score)])
+			item(
+				line(
+					[e.studyType, e.area].filter(Boolean).join(' '),
+					dot([esc(e.institution), range(e.startDate, e.endDate), esc(e.score)])
+				)
 			)
 		)
 		.join('');
 
 	const certificates = (resume.certificates ?? [])
-		.map((c) => line(c.name, dot([esc(c.issuer), when(c.date)])))
+		.map((c) => item(line(c.name, dot([esc(c.issuer), when(c.date)]))))
 		.join('');
 
 	const volunteer = (resume.volunteer ?? [])
-		.map(
-			(v) =>
+		.map((v) =>
+			item(
 				line(v.position, dot([esc(v.organization), range(v.startDate, v.endDate)])) +
-				note(v.summary || v.description, 150) +
-				bullets(v.highlights)
+					note(v.summary || v.description) +
+					bullets(v.highlights)
+			)
 		)
 		.join('');
 
 	const languages = (resume.languages ?? [])
-		.map((x) => line(x.language, esc(x.fluency)))
+		.map((x) => item(line(x.language, esc(x.fluency))))
 		.join('');
 
 	const interests = (resume.interests ?? [])
-		.map((i) => line(i.name, dot((i.keywords ?? []).map(esc))))
+		.map((i) => item(line(i.name, dot((i.keywords ?? []).map(esc)))))
 		.join('');
 
 	const references = (resume.references ?? [])
-		.map((r) => line(r.name, '') + note(r.reference, 160))
+		.map((r) => item(line(r.name, '') + note(r.reference)))
 		.join('');
+
+	let n = 0;
+	const sec = (title, body) => section(n++, title, body);
 
 	return `<!doctype html>
 <html lang="en">
@@ -159,8 +157,7 @@ function render(resume) {
 html { background: #eceae4; }
 body {
 	width: 210mm;
-	height: 297mm;
-	overflow: hidden;
+	min-height: 297mm;
 	margin: 0 auto;
 	padding: 11mm 14mm 8mm;
 	background: var(--paper);
@@ -170,10 +167,23 @@ body {
 	line-height: 1.5;
 	-webkit-font-smoothing: antialiased;
 }
+body.paged {
+	min-height: 0;
+	padding: 0;
+	background: transparent;
+}
+.sheet {
+	width: 210mm;
+	height: 297mm;
+	overflow: hidden;
+	margin: 0 0 8mm;
+	padding: 11mm 14mm 8mm;
+	background: var(--paper);
+}
 a { color: var(--sage-deep); text-decoration: none; }
 .sep { color: var(--faint); padding: 0 .12em; }
 
-header { text-align: center; padding-bottom: 4mm; }
+header { text-align: center; padding-bottom: 4mm; break-inside: avoid; }
 h1 {
 	font-family: var(--serif);
 	font-size: 2.45em;
@@ -194,6 +204,7 @@ h1 {
 	text-align: center;
 	font-size: .98em;
 	line-height: 1.62;
+	break-inside: avoid;
 }
 
 main {
@@ -201,11 +212,12 @@ main {
 	grid-template-columns: 1.34fr 1fr;
 	column-gap: 9mm;
 	padding-top: 4mm;
+	align-items: start;
 }
 main.one { display: block; }
 main.one section { margin-bottom: 7mm; }
 main.one article { margin-bottom: 3.6mm; }
-main.one .line { margin-bottom: 2.6mm; }
+main.one .item { margin-bottom: 2.6mm; }
 
 section { margin-bottom: 4mm; }
 section:last-child { margin-bottom: 0; }
@@ -218,9 +230,11 @@ h2 {
 	padding-bottom: 1.1mm;
 	margin-bottom: 2.4mm;
 	border-bottom: .3pt solid var(--line);
+	break-after: avoid;
+	page-break-after: avoid;
 }
 
-article { margin-bottom: 2mm; break-inside: avoid; }
+article, .item { margin-bottom: 2mm; break-inside: avoid; page-break-inside: avoid; }
 h3 {
 	display: flex;
 	flex-wrap: wrap;
@@ -230,6 +244,8 @@ h3 {
 	font-weight: 600;
 	color: var(--ink);
 	line-height: 1.35;
+	break-after: avoid;
+	page-break-after: avoid;
 }
 h3 .org { font-weight: 400; color: var(--soft); }
 h3 a { font-weight: 400; font-size: .87em; color: var(--sage); }
@@ -247,7 +263,10 @@ li::before { content: '·'; position: absolute; left: .7mm; color: var(--sage); 
 
 @media print {
 	html { background: var(--paper); }
-	body { width: 210mm; height: 297mm; margin: 0; overflow: hidden; }
+	body { width: 210mm; margin: 0; min-height: 0; }
+	body.paged { background: transparent; }
+	.sheet { margin: 0; break-after: page; page-break-after: always; }
+	.sheet:last-child { break-after: auto; page-break-after: auto; }
 }
 </style>
 </head>
@@ -258,52 +277,155 @@ li::before { content: '·'; position: absolute; left: .7mm; color: var(--sage); 
 	${contact ? `<p class="contact">${contact}</p>` : ''}
 </header>
 ${b.summary ? `<p class="summary">${esc(b.summary)}</p>` : ''}
-<main${one ? ' class="one"' : ''}>
-	${one
-		? `${section('experience', work)}
-	${section('selected work', projects)}
-	${section('publications', publications)}
-	${section('awards', awards)}
-	${section('skills', skills)}
-	${section('education', education)}
-	${section('certificates', certificates)}
-	${section('volunteering', volunteer)}
-	${section('languages', languages)}
-	${section('interests', interests)}
-	${section('references', references)}`
-		: `<div>
-		${section('experience', work)}
-		${projects_left ? section('selected work', projects_left) : ''}
-		${section('publications', publications)}
-		${section('awards', awards)}
-		${section('skills', skills)}
-		${section('education', education)}
-		${section('certificates', certificates)}
-	</div>
-	<div>
-		${projects_right ? section('selected work', projects_right) : ''}
-		${section('volunteering', volunteer)}
-		${section('languages', languages)}
-		${section('interests', interests)}
-		${section('references', references)}
-	</div>`}
+<main class="one">
+	${sec('experience', work)}
+	${sec('selected work', projects)}
+	${sec('publications', publications)}
+	${sec('awards', awards)}
+	${sec('skills', skills)}
+	${sec('education', education)}
+	${sec('certificates', certificates)}
+	${sec('volunteering', volunteer)}
+	${sec('languages', languages)}
+	${sec('interests', interests)}
+	${sec('references', references)}
 </main>
 <script>
 (function () {
 	var body = document.body;
-	var fits = function () {
-		return body.scrollHeight <= body.clientHeight + 1;
+	var main = document.querySelector('main');
+	var two = ${one ? 'false' : 'true'};
+	var leftKeys = {
+		experience: 1,
+		publications: 1,
+		awards: 1,
+		skills: 1,
+		education: 1,
+		certificates: 1
 	};
-	var one = document.querySelector('main.one');
-	var lo = 6.4;
-	var hi = one ? 11.0 : 11.2;
-	var best = lo;
-	for (var size = lo; size <= hi; size += 0.1) {
-		body.style.fontSize = size.toFixed(1) + 'pt';
-		if (!fits()) break;
-		best = size;
+
+	var findSec = function (root, title) {
+		var list = root.querySelectorAll('section');
+		for (var i = 0; i < list.length; i++) {
+			if (list[i].getAttribute('data-k') === title) return list[i];
+		}
+		return null;
+	};
+
+	var ensureSec = function (col, title) {
+		var sec = findSec(col, title);
+		if (sec) return sec;
+		sec = document.createElement('section');
+		sec.setAttribute('data-k', title);
+		var h2 = document.createElement('h2');
+		h2.appendChild(document.createTextNode(title));
+		sec.appendChild(h2);
+		col.appendChild(sec);
+		return sec;
+	};
+
+	var limitOf = function (page) {
+		var pad = parseFloat(getComputedStyle(page).paddingBottom) || 0;
+		var room = 8 * (96 / 25.4);
+		return page.getBoundingClientRect().bottom - pad - room;
+	};
+
+	var overflows = function (page, el) {
+		return el.getBoundingClientRect().bottom > limitOf(page) + 1;
+	};
+
+	var header = document.querySelector('header');
+	var summary = document.querySelector('.summary');
+	var left = [];
+	var right = [];
+	[].slice.call(main.querySelectorAll('section')).forEach(function (sec) {
+		var title = sec.getAttribute('data-k');
+		var kids = [].slice.call(sec.children).filter(function (n) {
+			return n.tagName !== 'H2';
+		});
+		kids.forEach(function (el, idx) {
+			(two && leftKeys[title] ? left : right).push({ title: title, el: el, idx: idx });
+		});
+	});
+
+	body.className = 'paged';
+	body.innerHTML = '';
+
+	var page;
+	var destL;
+	var destR;
+
+	var addPage = function () {
+		page = document.createElement('div');
+		page.className = 'sheet';
+		var dest = document.createElement('main');
+		if (header) {
+			page.appendChild(header);
+			header = null;
+			if (summary) {
+				page.appendChild(summary);
+				summary = null;
+			}
+		}
+		if (two) {
+			destL = document.createElement('div');
+			destR = document.createElement('div');
+			dest.appendChild(destL);
+			dest.appendChild(destR);
+		} else {
+			dest.className = 'one';
+			destL = destR = dest;
+		}
+		page.appendChild(dest);
+		body.appendChild(page);
+	};
+
+	var put = function (a, col) {
+		var fresh = !findSec(col, a.title);
+		var empty = !col.firstChild;
+		var sec = ensureSec(col, a.title);
+		sec.appendChild(a.el);
+		if (!overflows(page, a.el)) return true;
+		sec.removeChild(a.el);
+		if (fresh) col.removeChild(sec);
+		else if (sec.children.length === 1) col.removeChild(sec);
+		if (!empty) return false;
+		sec = ensureSec(col, a.title);
+		sec.appendChild(a.el);
+		return true;
+	};
+
+	var fill = function (list, col) {
+		while (list.length && put(list[0], col)) list.shift();
+	};
+
+	var balance = function () {
+		if (!two || (destL.firstChild && destR.firstChild)) return;
+		var full = destL.firstChild ? destL : destR;
+		var empty = destL.firstChild ? destR : destL;
+		var secs = [].slice.call(full.children);
+		if (secs.length < 2) return;
+		secs.slice(Math.ceil(secs.length / 2)).forEach(function (s) {
+			empty.appendChild(s);
+		});
+	};
+
+	addPage();
+	for (;;) {
+		if (two && !left.length) {
+			fill(right, destL);
+			fill(right, destR);
+		} else if (two && !right.length) {
+			fill(left, destL);
+			fill(left, destR);
+		} else {
+			fill(left, destL);
+			fill(right, destR);
+		}
+		balance();
+		if (!left.length && !right.length) break;
+		addPage();
 	}
-	body.style.fontSize = best.toFixed(1) + 'pt';
 })();
 </script>
 </body>

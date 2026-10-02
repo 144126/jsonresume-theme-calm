@@ -127,7 +127,7 @@
   "projects": [
     {
       "name": "calm — JSON Resume theme",
-      "description": "Published npm theme (jsonresume-theme-calm) that fits any resume onto a single A4 page, sizing its own type between 6.8pt and 10.4pt to match how much you wrote. Its site renders any GitHub user's resume.json gist client-side, so no server ever holds a resume.",
+      "description": "Published npm theme (jsonresume-theme-calm) that keeps jobs and headings whole across page breaks instead of splitting them. Its site renders any GitHub user's resume.json gist client-side, so no server ever holds a resume.",
       "website": "https://calm.apexlinks.org"
     },
     {

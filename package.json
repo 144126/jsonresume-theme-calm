@@ -1,7 +1,7 @@
 {
   "name": "jsonresume-theme-calm",
-  "version": "1.0.1",
-  "description": "A calm one-page JSON Resume theme — soft sage palette, minimal layout, auto-fits any resume onto a single A4 page.",
+  "version": "1.1.0",
+  "description": "A calm JSON Resume theme — soft sage palette, minimal layout, page-break aware so sections do not split awkwardly.",
   "main": "index.js",
   "files": [
     "index.js"
@@ -13,9 +13,9 @@
     "cv",
     "theme",
     "a4",
-    "one-page",
-    "minimal",
-    "print"
+    "print",
+    "page-break",
+    "minimal"
   ],
   "author": "Gold Edward Edem Hogan <1440fl@gmail.com> (https://github.com/144126)",
   "license": "MIT",

@@ -21,8 +21,7 @@
 html { background: #eceae4; }
 body {
 	width: 210mm;
-	height: 297mm;
-	overflow: hidden;
+	min-height: 297mm;
 	margin: 0 auto;
 	padding: 11mm 14mm 8mm;
 	background: var(--paper);
@@ -32,10 +31,23 @@ body {
 	line-height: 1.5;
 	-webkit-font-smoothing: antialiased;
 }
+body.paged {
+	min-height: 0;
+	padding: 0;
+	background: transparent;
+}
+.sheet {
+	width: 210mm;
+	height: 297mm;
+	overflow: hidden;
+	margin: 0 0 8mm;
+	padding: 11mm 14mm 8mm;
+	background: var(--paper);
+}
 a { color: var(--sage-deep); text-decoration: none; }
 .sep { color: var(--faint); padding: 0 .12em; }
 
-header { text-align: center; padding-bottom: 4mm; }
+header { text-align: center; padding-bottom: 4mm; break-inside: avoid; }
 h1 {
 	font-family: var(--serif);
 	font-size: 2.45em;
@@ -56,6 +68,7 @@ h1 {
 	text-align: center;
 	font-size: .98em;
 	line-height: 1.62;
+	break-inside: avoid;
 }
 
 main {
@@ -63,11 +76,12 @@ main {
 	grid-template-columns: 1.34fr 1fr;
 	column-gap: 9mm;
 	padding-top: 4mm;
+	align-items: start;
 }
 main.one { display: block; }
 main.one section { margin-bottom: 7mm; }
 main.one article { margin-bottom: 3.6mm; }
-main.one .line { margin-bottom: 2.6mm; }
+main.one .item { margin-bottom: 2.6mm; }
 
 section { margin-bottom: 4mm; }
 section:last-child { margin-bottom: 0; }
@@ -80,9 +94,11 @@ h2 {
 	padding-bottom: 1.1mm;
 	margin-bottom: 2.4mm;
 	border-bottom: .3pt solid var(--line);
+	break-after: avoid;
+	page-break-after: avoid;
 }
 
-article { margin-bottom: 2mm; break-inside: avoid; }
+article, .item { margin-bottom: 2mm; break-inside: avoid; page-break-inside: avoid; }
 h3 {
 	display: flex;
 	flex-wrap: wrap;
@@ -92,6 +108,8 @@ h3 {
 	font-weight: 600;
 	color: var(--ink);
 	line-height: 1.35;
+	break-after: avoid;
+	page-break-after: avoid;
 }
 h3 .org { font-weight: 400; color: var(--soft); }
 h3 a { font-weight: 400; font-size: .87em; color: var(--sage); }
@@ -109,7 +127,10 @@ li::before { content: '·'; position: absolute; left: .7mm; color: var(--sage); 
 
 @media print {
 	html { background: var(--paper); }
-	body { width: 210mm; height: 297mm; margin: 0; overflow: hidden; }
+	body { width: 210mm; margin: 0; min-height: 0; }
+	body.paged { background: transparent; }
+	.sheet { margin: 0; break-after: page; page-break-after: always; }
+	.sheet:last-child { break-after: auto; page-break-after: auto; }
 }
 </style>
 </head>
@@ -121,17 +142,17 @@ li::before { content: '·'; position: absolute; left: .7mm; color: var(--sage); 
 </header>
 
 <main class="one">
-	<section><h2>experience</h2><article>
+	<section data-i="0" data-k="experience"><h2>experience</h2><article>
 	<h3>Co-Director, Software Engineer, and Event Manager <span class="org">BEEE Project</span><span class="when">Jan 2026 – present</span></h3><p class="note">A youth development organisation dealing in co-curricular education, STEM, and sports.</p></article><article>
 	<h3>Inventory and Income/Expense Accountant <span class="org">Giddies Cuisine</span><span class="when">Jan 2025 – Dec 2025</span></h3><p class="note">A food and pastry business.</p><ul><li>Designed the development of an e-commerce web application for the company to sell its goods online.</li></ul></article><article>
 	<h3>School Fees Accountant / Exam Officer <span class="org">AngelWings Comprehensive College</span><span class="when">Jan 2023 – Dec 2025</span></h3><ul><li>Handled school fees accounting and communicated with parents concerning their wards' fees and other school correspondence.</li><li>Migrated the school's financial and student records from pen-and-paper to digital systems.</li><li>Automated communication with parents and the updating of student and financial records.</li><li>Co-pioneered the introduction of computer-based examinations (CBT).</li><li>Automated student assessment result generation with a web application.</li></ul></article></section>
-	<section><h2>selected work</h2><article>
+	<section data-i="1" data-k="selected work"><h2>selected work</h2><article>
 	<h3>Taskify</h3><p>A productivity web application for task management.</p><ul><li>Founded and developed the application.</li></ul></article></section>
 	
 	
 	
-	<section><h2>education</h2><p class="line"><span class="lead">B.Sc. Computing</span> <span class="rest">NCC Education and University of Lancashire, UK <span class="sep">·</span> Jan 2023 – Dec 2027</span></p><p class="line"><span class="lead">Senior Secondary School Certificate</span> <span class="rest">Government Day Secondary School, Wuse 2, Abuja, Nigeria <span class="sep">·</span> Dec 2021</span></p></section>
-	<section><h2>certificates</h2><p class="line"><span class="lead">TETC 3.0 — Higher Education Track (TETC-2639)</span> <span class="rest">Tech Enabled Teachers Conference <span class="sep">·</span> Aug 2026</span></p><p class="line"><span class="lead">TETC 3.0 — K-12 Track (TETC-2030)</span> <span class="rest">Tech Enabled Teachers Conference <span class="sep">·</span> Aug 2026</span></p><p class="line"><span class="lead">Advanced Data Science</span> <span class="rest">Oct 2026</span></p><p class="line"><span class="lead">Introduction to Data Science</span> <span class="rest">Oct 2026</span></p></section>
+	<section data-i="5" data-k="education"><h2>education</h2><div class="item"><p class="line"><span class="lead">B.Sc. Computing</span> <span class="rest">NCC Education and University of Lancashire, UK <span class="sep">·</span> Jan 2023 – Dec 2027</span></p></div><div class="item"><p class="line"><span class="lead">Senior Secondary School Certificate</span> <span class="rest">Government Day Secondary School, Wuse 2, Abuja, Nigeria <span class="sep">·</span> Dec 2021</span></p></div></section>
+	<section data-i="6" data-k="certificates"><h2>certificates</h2><div class="item"><p class="line"><span class="lead">TETC 3.0 — Higher Education Track (TETC-2639)</span> <span class="rest">Tech Enabled Teachers Conference <span class="sep">·</span> Aug 2026</span></p></div><div class="item"><p class="line"><span class="lead">TETC 3.0 — K-12 Track (TETC-2030)</span> <span class="rest">Tech Enabled Teachers Conference <span class="sep">·</span> Aug 2026</span></p></div><div class="item"><p class="line"><span class="lead">Advanced Data Science</span> <span class="rest">Oct 2026</span></p></div><div class="item"><p class="line"><span class="lead">Introduction to Data Science</span> <span class="rest">Oct 2026</span></p></div></section>
 	
 	
 	
@@ -140,19 +161,139 @@ li::before { content: '·'; position: absolute; left: .7mm; color: var(--sage); 
 <script>
 (function () {
 	var body = document.body;
-	var fits = function () {
-		return body.scrollHeight <= body.clientHeight + 1;
+	var main = document.querySelector('main');
+	var two = false;
+	var leftKeys = {
+		experience: 1,
+		publications: 1,
+		awards: 1,
+		skills: 1,
+		education: 1,
+		certificates: 1
 	};
-	var one = document.querySelector('main.one');
-	var lo = 6.4;
-	var hi = one ? 11.0 : 11.2;
-	var best = lo;
-	for (var size = lo; size <= hi; size += 0.1) {
-		body.style.fontSize = size.toFixed(1) + 'pt';
-		if (!fits()) break;
-		best = size;
+
+	var findSec = function (root, title) {
+		var list = root.querySelectorAll('section');
+		for (var i = 0; i < list.length; i++) {
+			if (list[i].getAttribute('data-k') === title) return list[i];
+		}
+		return null;
+	};
+
+	var ensureSec = function (col, title) {
+		var sec = findSec(col, title);
+		if (sec) return sec;
+		sec = document.createElement('section');
+		sec.setAttribute('data-k', title);
+		var h2 = document.createElement('h2');
+		h2.appendChild(document.createTextNode(title));
+		sec.appendChild(h2);
+		col.appendChild(sec);
+		return sec;
+	};
+
+	var limitOf = function (page) {
+		var pad = parseFloat(getComputedStyle(page).paddingBottom) || 0;
+		var room = 8 * (96 / 25.4);
+		return page.getBoundingClientRect().bottom - pad - room;
+	};
+
+	var overflows = function (page, el) {
+		return el.getBoundingClientRect().bottom > limitOf(page) + 1;
+	};
+
+	var header = document.querySelector('header');
+	var summary = document.querySelector('.summary');
+	var left = [];
+	var right = [];
+	[].slice.call(main.querySelectorAll('section')).forEach(function (sec) {
+		var title = sec.getAttribute('data-k');
+		var kids = [].slice.call(sec.children).filter(function (n) {
+			return n.tagName !== 'H2';
+		});
+		kids.forEach(function (el, idx) {
+			(two && leftKeys[title] ? left : right).push({ title: title, el: el, idx: idx });
+		});
+	});
+
+	body.className = 'paged';
+	body.innerHTML = '';
+
+	var page;
+	var destL;
+	var destR;
+
+	var addPage = function () {
+		page = document.createElement('div');
+		page.className = 'sheet';
+		var dest = document.createElement('main');
+		if (header) {
+			page.appendChild(header);
+			header = null;
+			if (summary) {
+				page.appendChild(summary);
+				summary = null;
+			}
+		}
+		if (two) {
+			destL = document.createElement('div');
+			destR = document.createElement('div');
+			dest.appendChild(destL);
+			dest.appendChild(destR);
+		} else {
+			dest.className = 'one';
+			destL = destR = dest;
+		}
+		page.appendChild(dest);
+		body.appendChild(page);
+	};
+
+	var put = function (a, col) {
+		var fresh = !findSec(col, a.title);
+		var empty = !col.firstChild;
+		var sec = ensureSec(col, a.title);
+		sec.appendChild(a.el);
+		if (!overflows(page, a.el)) return true;
+		sec.removeChild(a.el);
+		if (fresh) col.removeChild(sec);
+		else if (sec.children.length === 1) col.removeChild(sec);
+		if (!empty) return false;
+		sec = ensureSec(col, a.title);
+		sec.appendChild(a.el);
+		return true;
+	};
+
+	var fill = function (list, col) {
+		while (list.length && put(list[0], col)) list.shift();
+	};
+
+	var balance = function () {
+		if (!two || (destL.firstChild && destR.firstChild)) return;
+		var full = destL.firstChild ? destL : destR;
+		var empty = destL.firstChild ? destR : destL;
+		var secs = [].slice.call(full.children);
+		if (secs.length < 2) return;
+		secs.slice(Math.ceil(secs.length / 2)).forEach(function (s) {
+			empty.appendChild(s);
+		});
+	};
+
+	addPage();
+	for (;;) {
+		if (two && !left.length) {
+			fill(right, destL);
+			fill(right, destR);
+		} else if (two && !right.length) {
+			fill(left, destL);
+			fill(left, destR);
+		} else {
+			fill(left, destL);
+			fill(right, destR);
+		}
+		balance();
+		if (!left.length && !right.length) break;
+		addPage();
 	}
-	body.style.fontSize = best.toFixed(1) + 'pt';
 })();
 </script>
 </body>

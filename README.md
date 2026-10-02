@@ -1,6 +1,6 @@
 # jsonresume-theme-calm
 
-A calm [JSON Resume](https://github.com/jsonresume/jsonresume.org/tree/master/packages/schema) theme. Soft sage palette on warm paper, hairline rules, no boxes or bars — and it fits **everything on a single A4 page**.
+A calm [JSON Resume](https://github.com/jsonresume/jsonresume.org/tree/master/packages/schema) theme. Soft sage palette on warm paper, hairline rules, no boxes or bars — and it is **page-break aware**, so a job or a heading never splits halfway down a page.
 
 **[calm.apexlinks.org](https://calm.apexlinks.org)** — type a GitHub username, see that person's résumé in this theme. Every résumé also has its own address: [calm.apexlinks.org/144126](https://calm.apexlinks.org/144126) is that page with nothing on it but the résumé, ready to send or print.
 
@@ -28,14 +28,11 @@ const { render } = require('jsonresume-theme-calm');
 const html = render(require('./resume.json'));
 ```
 
-## one page, always
+## page breaks
 
-The page sizes itself to your content: on load it picks the largest body size between **6.8pt and 10.4pt** that still fits A4, so a short resume fills the page and a long one stays on it. Nothing is scrollable, nothing spills to page two.
+Other themes often cut a section in half: the heading on page 1, the first job on page 2, or a role split across the fold. Calm does not shrink type to force one page. If a job, project, or item cannot sit comfortably on the page that is left, the whole piece starts on the next page.
 
-Two levers if a very long resume hits the 6.8pt floor:
-
-- project descriptions are trimmed to whole sentences within a ~150 character budget (`clamp(p.description, 150)` in `index.js`)
-- work summaries get ~240
+A short resume still uses two columns on one A4 sheet. A long one keeps that same two-column split across as many pages as it needs.
 
 ## what it renders
 
